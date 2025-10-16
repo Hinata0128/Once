@@ -1,6 +1,7 @@
 #pragma once
 #include "StaticMash/CStaticMesh.h"
 #include "DirectX/CDirectX11.h"
+#include "DirectX/CDirectX9.h"
 #include "Sprite2D/CSprite2D.h"
 #include "GameObject/UIObject/CUIObject.h"
 
@@ -12,7 +13,7 @@
 class CSceneBase	
 {
 public:
-	CSceneBase(CDirectX11* pDx11);
+	CSceneBase();
 	virtual ~CSceneBase() {}
 
 	virtual void Initialize() = 0;
@@ -45,6 +46,4 @@ protected:
 	int m_Score;
 
 	int m_Count;
-
-
 };

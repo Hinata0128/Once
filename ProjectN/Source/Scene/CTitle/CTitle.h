@@ -11,7 +11,7 @@ class CTitle
 	: public CSceneBase
 {
 public:
-	CTitle(CDirectX11* pDx11);
+	CTitle();
 	~CTitle() override;
 
 	void Initialize() override;

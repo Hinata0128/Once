@@ -11,7 +11,7 @@ class CGameOver
 	: public CSceneBase
 {
 public:
-	CGameOver(CDirectX11* pDx11);
+	CGameOver();
 	~CGameOver() override;
 
 	void Initialize() override;

@@ -11,7 +11,7 @@ class CEnding
 	: public CSceneBase
 {
 public:
-	CEnding(CDirectX11* pDx11);
+	CEnding();
 	~CEnding() override;
 
 	void Initialize() override;

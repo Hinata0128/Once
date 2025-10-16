@@ -1,8 +1,8 @@
 #include "CEnding.h"
 #include "Sound/CSoundManager.h"
 
-CEnding::CEnding(CDirectX11* pDx11)
-	: CSceneBase		( pDx11 )
+CEnding::CEnding()
+	: CSceneBase		()
 	, m_pEnding			( nullptr )
 	, m_pSpriteEnding	( nullptr )
 	, m_pEndingObj		( nullptr )

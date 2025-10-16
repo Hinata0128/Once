@@ -9,8 +9,8 @@
 //=================================================
 //	定数.
 //=================================================
-const TCHAR WND_TITLE[] = _T( "ProjectN" );
-const TCHAR APP_NAME[]	= _T( "ProjectN" );
+const TCHAR WND_TITLE[] = _T( "Ones" );
+const TCHAR APP_NAME[]	= _T( "Ones" );
 
 
 /********************************************************************************
@@ -22,12 +22,9 @@ const TCHAR APP_NAME[]	= _T( "ProjectN" );
 CMain::CMain()
 	//初期化リスト.
 	: m_hWnd	( nullptr )
-	, m_pDx9	( nullptr )
-	, m_pDx11	( nullptr )
 	, m_pGame	( nullptr )
 {
-	m_pDx9 = new CDirectX9();
-	m_pDx11 = new CDirectX11();
+	
 
 	//コマンドプロンプト表示.
 	//AllocConsole();
@@ -40,8 +37,6 @@ CMain::CMain()
 CMain::~CMain()
 {
 	SAFE_DELETE( m_pGame );
-	SAFE_DELETE( m_pDx9 );
-	SAFE_DELETE( m_pDx11 );
 
 	DeleteObject( m_hWnd );
 }
@@ -50,38 +45,42 @@ CMain::~CMain()
 //更新処理.
 void CMain::Update()
 {
+	auto pDx11 = CDirectX11::GetInstance();
+
 	//更新処理.
 	m_pGame->Update();
 
 	//バックバッファをクリアにする.
-	m_pDx11->ClearBackBuffer();
+	pDx11->ClearBackBuffer();
 
 	//描画処理.
 	m_pGame->Draw();
 	
 	//画面に表示.
-	m_pDx11->Present();
+	pDx11->Present();
 }
 
 
 //構築処理.
 HRESULT CMain::Create()
 {
+	auto pDx9 = CDirectX9::GetInstance();
+	auto pDx11 = CDirectX11::GetInstance();
 
 	//DirectX9構築.
-	if (FAILED(m_pDx9->Create(m_hWnd)))
+	if (FAILED(pDx9->Create(m_hWnd)))
 	{
 		return E_FAIL;
 	}
 
 	//DirectX11構築.
-	if( FAILED( m_pDx11->Create( m_hWnd ) ) )
+	if( FAILED( pDx11->Create( m_hWnd ) ) )
 	{
 		return E_FAIL;
 	}
 
 	//ゲームクラスのインスタンス生成.
-	m_pGame = new CGame( *m_pDx9, *m_pDx11, m_hWnd );
+	m_pGame = new CGame( m_hWnd );
 
 	//ゲームクラスの構築（Loadも含める）.
 	m_pGame->Create();
@@ -102,13 +101,8 @@ HRESULT CMain::LoadData()
 //解放処理.
 void CMain::Release()
 {
-	if( m_pDx11 != nullptr ){
-		m_pDx11->Release();
-	}
-	if (m_pDx9 != nullptr)
-	{
-		m_pDx9->Release();
-	}
+	CDirectX11::GetInstance()->Release();
+	CDirectX9::GetInstance()->Release();
 }
 
 

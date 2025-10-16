@@ -35,7 +35,5 @@ private:
 
 private:
 	HWND			m_hWnd;	//ウィンドウハンドル.
-	CDirectX9*		m_pDx9;	//DirectX9セットアップクラス.
-	CDirectX11*		m_pDx11;//DirectX11セットアップクラス.
 	CGame*			m_pGame;
 };

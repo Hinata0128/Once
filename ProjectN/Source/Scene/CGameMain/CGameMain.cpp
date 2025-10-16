@@ -2,8 +2,8 @@
 #include "Sound/CSoundManager.h"
 #include "Effect//Effect.h"
 
-CGameMain::CGameMain(CDirectX9* pDx9, CDirectX11* pDx11)
-	: CSceneBase			( pDx11 ) 
+CGameMain::CGameMain()
+	: CSceneBase			() 
 	, m_pDbgText			( nullptr )
 	, m_pSpriteGround		( nullptr )
 	, m_pSpriteExplosion	( nullptr )
@@ -23,8 +23,8 @@ CGameMain::CGameMain(CDirectX9* pDx9, CDirectX11* pDx11)
 	, m_pGameMain			( nullptr )
 	, m_pSpriteTitle		( nullptr )
 {
-	m_pDx11 = pDx11;
-	m_pDx9	= pDx9;
+	m_pDx11 = CDirectX11::GetInstance();
+	m_pDx9	= CDirectX9::GetInstance();
 
 	//ƒJƒƒ‰‚ÌˆÊ’u‚ğ•ÏX‚Å‚«‚é‚Æ‚±‚ë.
 	m_Camera.vPosition = D3DXVECTOR3(0.0f, 5.0f, -5.0f); 

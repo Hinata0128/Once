@@ -5,17 +5,18 @@
 
 //コンストラクタ.
 //初期化リストはメンバー変数の順番でする.
-CGame::CGame(CDirectX9& pDx9, CDirectX11& pDx11, HWND hWnd)
-	: m_pDx9				(&pDx9)
-	, m_pDx11				(&pDx11)
-	, m_hWnd				(hWnd)
+CGame::CGame( HWND hWnd )
+	: m_hWnd				(hWnd)
 
 	, m_pSpriteGround		(nullptr)
 	, m_pSpriteExplosion	(nullptr) 
 
 {
+	// DirectX シングルトン取得
+	auto pDx9 = CDirectX9::GetInstance();
+	auto pDx11 = CDirectX11::GetInstance();
 	//スタティックメッシュマネージャーの構築
-	CStaticMeshManager::GetInstance()->Create(pDx9, pDx11);
+	CStaticMeshManager::GetInstance()->Create(*pDx9, *pDx11);
 }
 
 
@@ -28,18 +29,22 @@ CGame::~CGame()
 //構築.
 void CGame::Create()
 {
-	//スタティックメッシュマネージャーの構築
-	CStaticMeshManager::GetInstance()->Create(*m_pDx9, *m_pDx11);
+	// DirectX シングルトン取得
+	auto pDx9 = CDirectX9::GetInstance();
+	auto pDx11 = CDirectX11::GetInstance();
 
-	CSceneManager::GetInstance()->SetDx11(m_pDx11);
-	CSceneManager::GetInstance()->SetDx9(m_pDx9);
+	//スタティックメッシュマネージャーの構築
+	CStaticMeshManager::GetInstance()->Create(*pDx9, *pDx11);
+
+	CSceneManager::GetInstance()->SetDx9(pDx9);
+	CSceneManager::GetInstance()->SetDx11(pDx11);
 
 	//Effectクラス
 	//ここに書いておかないといけない
 	//GameMainに書いてもいいけど先にLoadDateが読み込まされます.
 	Effect::GetInstance()->Create(
-		m_pDx11->GetDevice(),
-		m_pDx11->GetContext());
+		pDx11->GetDevice(),
+		pDx11->GetContext());
 }
 
 //ロードデータ関数.
@@ -75,7 +80,7 @@ void CGame::Update()
 //描画処理.
 void CGame::Draw()
 {
-	CSceneManager::GetInstance()->Drae();
+	CSceneManager::GetInstance()->Draw();
 }
 
 //ゲーム初期化/リセット用関数

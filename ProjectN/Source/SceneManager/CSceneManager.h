@@ -35,7 +35,7 @@ public:
 	HRESULT Create(HWND hWnd);
 
 	void Update();
-	void Drae();
+	void Draw();
 
 	//ƒV[ƒ““Ç‚İ‚İ.
 	void LoadScene(List Scene);

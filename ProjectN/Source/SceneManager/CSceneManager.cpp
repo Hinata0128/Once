@@ -26,7 +26,7 @@ void CSceneManager::Update()
 	m_pScene->Update();
 }
 
-void CSceneManager::Drae()
+void CSceneManager::Draw()
 {
 	m_pScene->Draw();
 }
@@ -51,7 +51,7 @@ void CSceneManager::MakeScene(List Scene)
 	switch (Scene)
 	{
 	//case CSceneManager::Title:
-	//	m_pScene = std::make_unique<CTitle>(m_pDx11);
+	//	m_pScene = std::make_unique<CTitle>();
 	//	//BGM‚ğ~‚ß‚é.
 	//	CSoundManager::Stop(CSoundManager::BGM_Over);
 	//	CSoundManager::Stop(CSoundManager::BGM_Ending);
@@ -59,7 +59,7 @@ void CSceneManager::MakeScene(List Scene)
 	//	CSoundManager::PlayLoop(CSoundManager::BGM_Title);
 	//	break;
 	case CSceneManager::GameMain:
-		m_pScene = std::make_unique<CGameMain>(m_pDx9, m_pDx11);
+		m_pScene = std::make_unique<CGameMain>();
 		//SE‚ğ~‚ß‚é.
 		//BGM‚ğ~‚ß‚é.
 		CSoundManager::Stop(CSoundManager::BGM_Title);
@@ -67,14 +67,14 @@ void CSceneManager::MakeScene(List Scene)
 		CSoundManager::PlayLoop(CSoundManager::BGM_Main);
 		break;
 	//case CSceneManager::GameOver:
-	//	m_pScene = std::make_unique<CGameOver>(m_pDx11);
+	//	m_pScene = std::make_unique<CGameOver>();
 	//	//BGM‚ğ~‚ß‚é.
 	//	CSoundManager::Stop(CSoundManager::BGM_Main);
 	//	//BGMƒ‹[ƒv.
 	//	CSoundManager::PlayLoop(CSoundManager::BGM_Over);
 	//	break;
 	//case CSceneManager::Ending:
-	//	m_pScene = std::make_unique<CEnding>(m_pDx11);
+	//	m_pScene = std::make_unique<CEnding>();
 	//	//BGM‚ğ~‚ß‚é.
 	//	CSoundManager::Stop(CSoundManager::BGM_Main);
 	//	//BGMƒ‹[ƒv.

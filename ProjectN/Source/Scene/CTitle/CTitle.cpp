@@ -1,8 +1,8 @@
 #include "CTitle.h"
 #include "Sound/CSoundManager.h"
 
-CTitle::CTitle(CDirectX11* pDx11)
-	: CSceneBase				( pDx11 )
+CTitle::CTitle()
+	: CSceneBase				()
 	, m_pTitle					( nullptr )
 	, m_pSpriteTitle			( nullptr )
 	, m_pTitleObj				( nullptr )

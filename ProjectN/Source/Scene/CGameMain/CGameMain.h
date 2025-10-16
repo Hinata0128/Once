@@ -18,7 +18,7 @@ class CGameMain
 	: public CSceneBase
 {
 public:
-	CGameMain(CDirectX9* pDx9, CDirectX11* pDx11);
+	CGameMain();
 	~CGameMain() override;
 
 	void Initialize() override;

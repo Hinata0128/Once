@@ -11,7 +11,7 @@
 class CGame
 {
 public:
-	CGame(CDirectX9& pDx9, CDirectX11& pDx11, HWND hWnd);
+	CGame( HWND hWnd );
 	~CGame();
 
 	void Create();
@@ -24,9 +24,6 @@ public:
 	void Init();
 
 private:
-	CDirectX9*			m_pDx9;
-	CDirectX11*			m_pDx11;
-
 	//ウィンドウハンドル.
 	HWND				m_hWnd;
 
