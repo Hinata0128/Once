@@ -1,7 +1,7 @@
 #pragma once
 #include "StaticMash/CStaticMesh.h"
-#include "DirectX/CDirectX11.h"
-#include "DirectX/CDirectX9.h"
+#include "DirectX/DirectX11.h"
+#include "DirectX/DirectX9.h"
 #include "Sprite2D/CSprite2D.h"
 #include "GameObject/UIObject/CUIObject.h"
 
@@ -28,8 +28,8 @@ public:
 
 protected:
 	CStaticMesh* m_pMesh;
-	CDirectX9* m_pDx9;
-	CDirectX11* m_pDx11;
+	DirectX9* m_pDx9;
+	DirectX11* m_pDx11;
 
 	//ウィンドウハンドル.
 	HWND				m_hWnd;

@@ -43,8 +43,8 @@ public:
 	//HWNDÇéÊìæ.
 	HWND GetHWND() const;
 public:
-	void SetDx11(CDirectX11* Dx11) { m_pDx11 = Dx11; }
-	void SetDx9(CDirectX9* pDx9) { m_pDx9 = pDx9; }
+	void SetDx11(DirectX11* Dx11) { m_pDx11 = Dx11; }
+	void SetDx9(DirectX9* pDx9) { m_pDx9 = pDx9; }
 private:
 	//ÉVÅ[ÉìçÏê¨.
 	void MakeScene(List Scene);
@@ -57,6 +57,6 @@ private:
 	std::unique_ptr<CSceneBase> m_pScene;
 	HWND m_hWnd;
 
-	CDirectX11* m_pDx11;
-	CDirectX9*	m_pDx9;
+	DirectX11* m_pDx11;
+	DirectX9*	m_pDx9;
 };

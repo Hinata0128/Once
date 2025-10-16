@@ -12,7 +12,7 @@ CStaticMeshManager::~CStaticMeshManager()
 {
 }
 
-void CStaticMeshManager::Create(CDirectX9& pDx9, CDirectX11& pDx11)
+void CStaticMeshManager::Create(DirectX9& pDx9, DirectX11& pDx11)
 {
 	for (int i = 0; i < CMeshList::max; ++i)
 	{

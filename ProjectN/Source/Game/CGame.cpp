@@ -13,8 +13,8 @@ CGame::CGame( HWND hWnd )
 
 {
 	// DirectX シングルトン取得
-	auto pDx9 = CDirectX9::GetInstance();
-	auto pDx11 = CDirectX11::GetInstance();
+	auto pDx9 = DirectX9::GetInstance();
+	auto pDx11 = DirectX11::GetInstance();
 	//スタティックメッシュマネージャーの構築
 	CStaticMeshManager::GetInstance()->Create(*pDx9, *pDx11);
 }
@@ -30,8 +30,8 @@ CGame::~CGame()
 void CGame::Create()
 {
 	// DirectX シングルトン取得
-	auto pDx9 = CDirectX9::GetInstance();
-	auto pDx11 = CDirectX11::GetInstance();
+	auto pDx9 = DirectX9::GetInstance();
+	auto pDx11 = DirectX11::GetInstance();
 
 	//スタティックメッシュマネージャーの構築
 	CStaticMeshManager::GetInstance()->Create(*pDx9, *pDx11);

@@ -1,6 +1,6 @@
 ﻿#pragma once
-#include "DirectX\CDirectX9.h"
-#include "DirectX\CDirectX11.h"
+#include "DirectX\DirectX9.h"
+#include "DirectX\DirectX11.h"
 #include "Sprite3D\CSprite3D.h"
 #include "Sprite2D\CSprite2D.h"
 #include "SceneManager/CSceneManager.h"

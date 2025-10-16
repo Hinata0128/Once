@@ -20,7 +20,7 @@ public:
 public:
 		~CStaticMeshManager();
 
-		void Create(CDirectX9& pDx9, CDirectX11& pDx11);
+		void Create(DirectX9& pDx9, DirectX11& pDx11);
 		void Init();
 
 		//スタティッククラスのゲットインスタンスを書く

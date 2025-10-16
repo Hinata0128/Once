@@ -8,7 +8,7 @@
 #define ALIGN16 _declspec( align(16) )
 
 //前方宣言.
-class CDirectX11;
+class DirectX11;
 
 /**************************************************
 *	デバックテキストクラス.
@@ -45,7 +45,7 @@ public:
 	~CDebugText();	//デストラクタ.
 
 	//初期化.
-	HRESULT Init( CDirectX11& pDx11 );
+	HRESULT Init(DirectX11& pDx11 );
 
 	//レンダリング用.
 	void Render(LPCTSTR text, int x, int y);
@@ -78,7 +78,7 @@ private:
 	void Release();
 
 private:
-	CDirectX11*				m_pDx11;
+	DirectX11*				m_pDx11;
 	ID3D11Device*			m_pDevice11;
 	ID3D11DeviceContext*	m_pContext11;
 

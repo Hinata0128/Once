@@ -33,7 +33,7 @@ void CTitle::Create()
 	{ 1280.f, 720.f, 896.f, 560.f, 896.f , 560.f};
 
 	//タイトルスプライト読み込み.
-	m_pSpriteTitle->Init(*m_pDx11,
+	m_pSpriteTitle->Init(
 		_T("Data\\Texture\\Title.png"), SSTitle);
 
 	//UIObjをインスタンス生成.

@@ -27,7 +27,7 @@ void CEnding::Create()
 	{ 1280.f, 720.f, 896.f, 560.f, 896.f , 560.f };
 
 	//タイトルスプライト読み込み.
-	m_pSpriteEnding->Init(*m_pDx11,
+	m_pSpriteEnding->Init(
 		_T("Data\\Texture\\Ending.png"), SSTitle);
 
 	//UIObjをインスタンス生成.

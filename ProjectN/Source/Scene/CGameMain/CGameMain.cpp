@@ -23,8 +23,8 @@ CGameMain::CGameMain()
 	, m_pGameMain			( nullptr )
 	, m_pSpriteTitle		( nullptr )
 {
-	m_pDx11 = CDirectX11::GetInstance();
-	m_pDx9	= CDirectX9::GetInstance();
+	m_pDx11 = DirectX11::GetInstance();
+	m_pDx9	= DirectX9::GetInstance();
 
 	//カメラの位置を変更できるところ.
 	m_Camera.vPosition = D3DXVECTOR3(0.0f, 5.0f, -5.0f); 
@@ -78,10 +78,6 @@ void CGameMain::Initialize()
 	m_Score = 0;
 	m_Count = 0;
 
-	m_isGameOverTransitioning = false;
-	m_gameOverDelayTimer	= 0;
-	m_isEndingTransitioning = false;
-	m_endingDelayTimer		= 0;
 }
 
 void CGameMain::Create()
@@ -118,7 +114,7 @@ void CGameMain::Create()
 	SSGround.Stride.h = 256.f;
 
 	//地面スプライトの読み込み.
-	m_pSpriteGround->Init(*m_pDx11,
+	m_pSpriteGround->Init(
 		_T("Data\\Texture\\Ground.png"), SSGround);
 
 
@@ -129,7 +125,7 @@ void CGameMain::Create()
 		32.f , 32.f		// Stride(w.h)
 	};
 	//爆発スプライトの読み込み.
-	m_pSpriteExplosion->Init(*m_pDx11,
+	m_pSpriteExplosion->Init(
 		_T("Data\\Texture\\explosion.png"), SSExplosion);
 
 

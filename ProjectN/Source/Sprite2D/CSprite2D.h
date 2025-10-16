@@ -8,7 +8,7 @@
 #define ALIGN16 _declspec( align(16) )
 
 //前方宣言.
-class CDirectX11;
+class DirectX11;
 
 /**************************************************
 *	スプライト2Dクラス.
@@ -57,7 +57,7 @@ public:
 	~CSprite2D();	//デストラクタ.
 
 	//初期化.
-	HRESULT Init(CDirectX11& pDx11, LPCTSTR lpFileName, SPRITE_STATE& pSs);
+	HRESULT Init(LPCTSTR lpFileName, SPRITE_STATE& pSs);
 
 	//解放.
 	void Release();
@@ -109,7 +109,6 @@ public:
 
 
 private:
-	CDirectX11*				m_pDx11;
 	ID3D11Device*			m_pDevice11;
 	ID3D11DeviceContext*	m_pContext11;
 

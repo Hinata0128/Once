@@ -63,11 +63,4 @@ private:
 	CGround*			m_pGround;
 	CDebugText*			m_pDbgText;	//デバックテキスト.
 
-	bool				m_isGameOverTransitioning; // ゲームオーバー遷移中フラグ
-	int					m_gameOverDelayTimer;       // 遷移までのカウントダウンタイマー
-	const int			GAME_OVER_DELAY_FRAMES = 60; // 例: 60フレーム待つ (約1.0秒)
-
-	bool				m_isEndingTransitioning;   //エンディング遷移中フラグ
-	int					m_endingDelayTimer;         //エンディング遷移までのカウントダウンタイマー
-	const int			ENDING_DELAY_FRAMES = 30; // 例: 30フレーム待つ (約0.5秒)
 };

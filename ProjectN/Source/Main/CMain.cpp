@@ -1,6 +1,6 @@
 #include "CMain.h"
-#include "DirectX\\CDirectX9.h"
-#include "DirectX\\CDirectX11.h"
+#include "DirectX\\DirectX9.h"
+#include "DirectX\\DirectX11.h"
 #include "Game\\CGame.h"
 
 //ウィンドウを画面中央で起動を有効にする.
@@ -45,7 +45,7 @@ CMain::~CMain()
 //更新処理.
 void CMain::Update()
 {
-	auto pDx11 = CDirectX11::GetInstance();
+	auto pDx11 = DirectX11::GetInstance();
 
 	//更新処理.
 	m_pGame->Update();
@@ -64,8 +64,8 @@ void CMain::Update()
 //構築処理.
 HRESULT CMain::Create()
 {
-	auto pDx9 = CDirectX9::GetInstance();
-	auto pDx11 = CDirectX11::GetInstance();
+	auto pDx9 = DirectX9::GetInstance();
+	auto pDx11 = DirectX11::GetInstance();
 
 	//DirectX9構築.
 	if (FAILED(pDx9->Create(m_hWnd)))
@@ -101,8 +101,8 @@ HRESULT CMain::LoadData()
 //解放処理.
 void CMain::Release()
 {
-	CDirectX11::GetInstance()->Release();
-	CDirectX9::GetInstance()->Release();
+	DirectX11::GetInstance()->Release();
+	DirectX9::GetInstance()->Release();
 }
 
 

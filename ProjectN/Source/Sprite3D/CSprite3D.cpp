@@ -1,14 +1,13 @@
 #include "CSprite3D.h"
-#include "DirectX\\CDirectX11.h"
+#include "DirectX\\DirectX11.h"
 
 //シェーダファイル名（ディレクトリも含む）.
 const TCHAR SHADER_NAME[] = _T( "Data\\Shader\\Sprite3D.hlsl" );
 
 //コンストラクタ.
 CSprite3D::CSprite3D()
-	: m_pDx11			( nullptr )
-	, m_pDevice11		( nullptr )
-	, m_pContext11		( nullptr )
+	: m_pDevice11		(DirectX11::GetInstance()->GetDevice() )
+	, m_pContext11		(DirectX11::GetInstance()->GetContext())
 	, m_pVertexShader	( nullptr )
 	, m_pVertexLayout	( nullptr )
 	, m_pPixelShader	( nullptr )
@@ -37,20 +36,17 @@ CSprite3D::~CSprite3D()
 	//別のところで管理しているのでここではnullptrを入れて初期化.
 	m_pContext11 = nullptr;
 	m_pDevice11 = nullptr;
-	m_pDx11 = nullptr;
 }
 
 //初期化.
 //	ID3D11Device* pDevice11 外部で作成して持ってくる。
 //	ID3D11DeviceContext* pContext11 外部で作成して持ってくる。
 HRESULT CSprite3D::Init(
-	CDirectX11& pDx11,
 	LPCTSTR lpFileName,
 	SPRITE_STATE& pSs)
 {
-	m_pDx11 = &pDx11;
-	m_pDevice11 = m_pDx11->GetDevice();		//実態は別のところにある.他とも共有している.
-	m_pContext11 = m_pDx11->GetContext();	//実態は別のところにある.他とも共有している.
+	m_pDevice11 = DirectX11::GetInstance()->GetDevice();		//実態は別のところにある.他とも共有している.
+	m_pContext11 = DirectX11::GetInstance()->GetContext();	//実態は別のところにある.他とも共有している.
 
 	m_SpriteState = pSs;
 
@@ -423,12 +419,12 @@ void CSprite3D::Render(
 	m_pContext11->PSSetShaderResources( 0, 1, &m_pTexture );
 
 	//アルファブレンド有効にする.
-	m_pDx11->SetAlphaBlend( true );
+	DirectX11::GetInstance()->SetAlphaBlend(true);
 
 	//プリミティブをレンダリング.
 	m_pContext11->Draw(4, 0);//板ポリ（頂点4つ分）.
 
 	//アルファブレンド無効にする.
-	m_pDx11->SetAlphaBlend( false );
+	DirectX11::GetInstance()->SetAlphaBlend( false );
 
 }

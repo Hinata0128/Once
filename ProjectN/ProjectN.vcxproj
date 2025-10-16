@@ -173,11 +173,11 @@
     <ClCompile Include="Source\GameObject\StaticMeshObject\Shot\CShot.cpp" />
     <ClCompile Include="Source\GameObject\CSpriteObject\CSpriteObject.cpp" />
     <ClCompile Include="Source\DebugText\CDebugText.cpp" />
-    <ClCompile Include="Source\DirectX\CDirectX11.cpp">
+    <ClCompile Include="Source\DirectX\DirectX11.cpp">
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdafx.h</ForcedIncludeFiles>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdafx.h</ForcedIncludeFiles>
     </ClCompile>
-    <ClCompile Include="Source\DirectX\CDirectX9.cpp" />
+    <ClCompile Include="Source\DirectX\DirectX9.cpp" />
     <ClCompile Include="Source\Game\CGame.cpp" />
     <ClCompile Include="Source\GameObject\CGameObject.cpp" />
     <ClCompile Include="Source\Main\CMain.cpp" />
@@ -216,8 +216,8 @@
     <ClInclude Include="Source\GameObject\StaticMeshObject\Shot\CShot.h" />
     <ClInclude Include="Source\GameObject\CSpriteObject\CSpriteObject.h" />
     <ClInclude Include="Source\DebugText\CDebugText.h" />
-    <ClInclude Include="Source\DirectX\CDirectX11.h" />
-    <ClInclude Include="Source\DirectX\CDirectX9.h" />
+    <ClInclude Include="Source\DirectX\DirectX11.h" />
+    <ClInclude Include="Source\DirectX\DirectX9.h" />
     <ClInclude Include="Source\Game\CGame.h" />
     <ClInclude Include="Source\GameObject\CGameObject.h" />
     <ClInclude Include="Source\Main\CMain.h" />

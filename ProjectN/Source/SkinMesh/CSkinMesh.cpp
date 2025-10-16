@@ -3,8 +3,8 @@
 *	LastUpdate	: 2025/06/23.
 **/
 #include "CSkinMesh.h"
-#include "DirectX/CDirectX9.h"
-#include "DirectX/CDirectX11.h"
+#include "DirectX/DirectX9.h"
+#include "DirectX/DirectX11.h"
 
 #include <stdlib.h>	//マルチバイト文字→Unicode文字変換で必要.
 #include <locale.h>
@@ -123,7 +123,7 @@ CSkinMesh::~CSkinMesh()
 
 //初期化.
 HRESULT CSkinMesh::Init(
-	CDirectX9& pDx9, CDirectX11& pDx11, LPCTSTR FileName )
+	DirectX9& pDx9, DirectX11& pDx11, LPCTSTR FileName )
 {
 	m_pDx9 = &pDx9;
 	m_pDevice9 = m_pDx9->GetDevice();

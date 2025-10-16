@@ -27,7 +27,7 @@ void CGameOver::Create()
 	{ 1280.f, 720.f, 896.f, 560.f, 896.f , 560.f };
 
 	//タイトルスプライト読み込み.
-	m_pSpriteGameOver->Init(*m_pDx11,
+	m_pSpriteGameOver->Init(
 		_T("Data\\Texture\\GameOver.png"), SSGameOver);
 
 	//UIObjをインスタンス生成.

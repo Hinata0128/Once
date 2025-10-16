@@ -1,8 +1,8 @@
 #include "MyMacro.h"
-#include "CDirectX11.h"
+#include "DirectX11.h"
 
 //コンストラクタ.
-CDirectX11::CDirectX11()
+DirectX11::DirectX11()
 	: m_pDevice11				( nullptr )
 	, m_pContext11				( nullptr )
 	, m_pSwapChain				( nullptr )
@@ -20,13 +20,13 @@ CDirectX11::CDirectX11()
 
 
 //デストラクタ.
-CDirectX11::~CDirectX11()
+DirectX11::~DirectX11()
 {
 	Release();
 }
 
 //DirectX構築関数.
-HRESULT CDirectX11::Create(HWND hWnd)
+HRESULT DirectX11::Create(HWND hWnd)
 {
 	//デバイスとスワップチェインを作成.
 	if( FAILED(
@@ -94,7 +94,7 @@ HRESULT CDirectX11::Create(HWND hWnd)
 
 //解放処理.
 // 解放するときは、作った順と逆の順で開放する.
-void CDirectX11::Release()
+void DirectX11::Release()
 {
 	SAFE_RELEASE( m_pAlphaBlendOff );
 	SAFE_RELEASE( m_pAlphaBlendOn );
@@ -113,7 +113,7 @@ void CDirectX11::Release()
 
 
 //デバイスとスワップチェーンの作成.
-HRESULT CDirectX11::CreateDeviceAndSwapChain(
+HRESULT DirectX11::CreateDeviceAndSwapChain(
 	HWND hWnd, UINT uFPS, UINT uWidth, UINT uHeight )
 {
 	//スワップチェーン構造体.
@@ -188,7 +188,7 @@ HRESULT CDirectX11::CreateDeviceAndSwapChain(
 //ラスタライズ（面の塗りつぶし方）の設定を行う.
 //ステータスの作成から設定まで行っており最初に一度だけ呼び出せばよい.
 //レンダリング最中に塗りつぶし方を変更したい場合は、下記の関数を分解する必要がある.
-HRESULT CDirectX11::CreateRasterizer()
+HRESULT DirectX11::CreateRasterizer()
 {
 	D3D11_RASTERIZER_DESC rdc;
 	ZeroMemory( &rdc, sizeof( rdc ) );
@@ -218,7 +218,7 @@ HRESULT CDirectX11::CreateRasterizer()
 
 //デプスステンシル設定.
 //この関数１つでON/OFFの2種類を作成する.
-HRESULT CDirectX11::CreateDepthStencilState()
+HRESULT DirectX11::CreateDepthStencilState()
 {
 	//深度テスト（Ｚテスト）の設定.
 	//※ON/OFFの共通部分のみ設定.
@@ -257,7 +257,7 @@ HRESULT CDirectX11::CreateDepthStencilState()
 
 //ブレンドステート作成.
 //アルファブレンドのON/OFFの２種類を作成.
-HRESULT CDirectX11::CreateAlphaBlendState()
+HRESULT DirectX11::CreateAlphaBlendState()
 {
 	//アルファブレンド用ブレンドステート構造体.
 	//pngファイル内にアルファ情報があるので、透過するようにブレンドステートで設定する.
@@ -312,7 +312,7 @@ HRESULT CDirectX11::CreateAlphaBlendState()
 
 
 //透過設定の切り替え.
-void CDirectX11::SetAlphaBlend( bool flag )
+void DirectX11::SetAlphaBlend( bool flag )
 {
 	UINT mask = 0xffffffff;	//マスク値.
 	ID3D11BlendState* pTmp
@@ -324,7 +324,7 @@ void CDirectX11::SetAlphaBlend( bool flag )
 
 
 //深度（Ｚ）テストON/OFF切り替え.
-void CDirectX11::SetDepth(bool flag)
+void DirectX11::SetDepth(bool flag)
 {
 	ID3D11DepthStencilState* pTmp
 		= ( flag == true ) ? m_pDepthStencilStateOn : m_pDepthStencilStateOff;
@@ -336,7 +336,7 @@ void CDirectX11::SetDepth(bool flag)
 
 //バックバッファクリア関数.
 //この関数を呼び出した後にレンダリングをすること.
-void CDirectX11::ClearBackBuffer()
+void DirectX11::ClearBackBuffer()
 {
 	//画面のクリア.
 	float ClearColor[4] = { 0.8f, 0.7f, 0.6f, 1.0f };	//クリア色（RGBAの順）.
@@ -352,14 +352,14 @@ void CDirectX11::ClearBackBuffer()
 
 
 //表示.
-void CDirectX11::Present()
+void DirectX11::Present()
 {
 	m_pSwapChain->Present( 0, 0 );
 }
 
 
 //バックバッファ作成:カラー用レンダーターゲットビュー作成.
-HRESULT CDirectX11::CreateColorBackBufferRTV()
+HRESULT DirectX11::CreateColorBackBufferRTV()
 {
 	//バックバッファテクスチャを取得（既にあるので作成ではない）.
 	ID3D11Texture2D* pBackBuffer_Tex = nullptr;
@@ -392,7 +392,7 @@ HRESULT CDirectX11::CreateColorBackBufferRTV()
 
 
 //バックバッファ作成:デプスステンシル用レンダーターゲットビュー作成.
-HRESULT CDirectX11::CreateDepthStencilBackBufferRTV()
+HRESULT DirectX11::CreateDepthStencilBackBufferRTV()
 {
 
 	//デプス（深さor深度）ステンシルビュー用のテクスチャを作成.

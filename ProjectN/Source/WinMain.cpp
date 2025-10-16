@@ -1,6 +1,6 @@
 #include "Main\\CMain.h"
 #include "Global.h"
-#include "DirectX\\CDirectX11.h"
+#include "DirectX\\DirectX11.h"
 #include <crtdbg.h>	//_ASSERT_EXPR()‚Å•K—v.
 #include "MyMacro.h"
 

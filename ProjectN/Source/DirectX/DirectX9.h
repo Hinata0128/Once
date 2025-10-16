@@ -16,18 +16,18 @@
 /**************************************************
 *	DirectX9 セットアップ.
 **/
-class CDirectX9
+class DirectX9
 {
 public:
-	~CDirectX9();
+	~DirectX9();
 
 	//インスタンス取得(唯一のアクセス経路).
 //※関数の前にstaticを付けることでインスタンス生成しなくても使用できる.
-	static CDirectX9* GetInstance()
+	static DirectX9* GetInstance()
 	{
 		//唯一のインスタンスを作成する.
 		//※staticで作成されたので2回目以降は、下の1行は無視される.
-		static CDirectX9 s_Instance;	//s_:staticの意味.
+		static DirectX9 s_Instance;	//s_:staticの意味.
 		return &s_Instance;
 	}
 	//DirectX9構築.
@@ -39,11 +39,11 @@ public:
 	LPDIRECT3DDEVICE9 GetDevice() const { return m_pDevice9; }
 
 private:
-	CDirectX9();
-	CDirectX9(const CDirectX9& rhs) = delete;
+	DirectX9();
+	DirectX9(const DirectX9& rhs) = delete;
 	//代入演算子によるコピーを禁止する.
 	//operator(オペレータ):演算子のオーバーロードで、演算の中身を拡張できる.
-	CDirectX9& operator = (const CDirectX9& rhs) = delete;
+	DirectX9& operator = (const DirectX9& rhs) = delete;
 
 
 

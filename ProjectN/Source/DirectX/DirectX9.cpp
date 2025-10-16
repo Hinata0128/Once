@@ -1,18 +1,18 @@
-#include "CDirectX9.h"
+#include "DirectX9.h"
 
-CDirectX9::CDirectX9()
+DirectX9::DirectX9()
 	: m_pDevice9	( nullptr )
 {
 
 }
 
-CDirectX9::~CDirectX9()
+DirectX9::~DirectX9()
 {
 
 }
 
 //Dx9初期化.
-HRESULT CDirectX9::Create( HWND hWnd )
+HRESULT DirectX9::Create( HWND hWnd )
 {
 	//「Direct3D」オブジェクトの作成.
 	LPDIRECT3D9 pD3d9 = Direct3DCreate9( D3D_SDK_VERSION );
@@ -75,7 +75,7 @@ HRESULT CDirectX9::Create( HWND hWnd )
 }
 
 
-void CDirectX9::Release()
+void DirectX9::Release()
 {
 
 }

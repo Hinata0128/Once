@@ -2,8 +2,8 @@
 #include <Windows.h>
 
 //ƒNƒ‰ƒX‚Ì‘O•ûéŒ¾.
-class CDirectX9;
-class CDirectX11;
+class DirectX9;
+class DirectX11;
 class CGame;
 
 /**************************************************
