@@ -166,38 +166,37 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Collision\CBoundingSphere.cpp" />
+    <ClCompile Include="Source\Collision\BoundingSphere.cpp" />
     <ClCompile Include="Source\Effect\Effect.cpp" />
-    <ClCompile Include="Source\GameObject\StaticMeshObject\CCharacter\CCharacter.cpp" />
-    <ClCompile Include="Source\GameObject\StaticMeshObject\CGround\CGround.cpp" />
-    <ClCompile Include="Source\GameObject\StaticMeshObject\Shot\CShot.cpp" />
-    <ClCompile Include="Source\GameObject\CSpriteObject\CSpriteObject.cpp" />
-    <ClCompile Include="Source\DebugText\CDebugText.cpp" />
+    <ClCompile Include="Source\GameObject\StaticMeshObject\Character\Character.cpp" />
+    <ClCompile Include="Source\GameObject\StaticMeshObject\Ground\Ground.cpp" />
+    <ClCompile Include="Source\GameObject\SpriteObject\SpriteObject.cpp" />
+    <ClCompile Include="Source\DebugText\DebugText.cpp" />
     <ClCompile Include="Source\DirectX\DirectX11.cpp">
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdafx.h</ForcedIncludeFiles>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdafx.h</ForcedIncludeFiles>
     </ClCompile>
     <ClCompile Include="Source\DirectX\DirectX9.cpp" />
-    <ClCompile Include="Source\Game\CGame.cpp" />
-    <ClCompile Include="Source\GameObject\CGameObject.cpp" />
-    <ClCompile Include="Source\Main\CMain.cpp" />
-    <ClCompile Include="Source\GameObject\StaticMeshObject\CCharacter\Player\CPlayer.cpp" />
-    <ClCompile Include="Source\SceneManager\CSceneManager.cpp" />
-    <ClCompile Include="Source\Scene\CEnding\CEnding.cpp" />
-    <ClCompile Include="Source\Scene\CGameMain\CGameMain.cpp" />
-    <ClCompile Include="Source\Scene\CGameOver\CGameOver.cpp" />
+    <ClCompile Include="Source\Game\Game.cpp" />
+    <ClCompile Include="Source\GameObject\GameObject.cpp" />
+    <ClCompile Include="Source\Main\Main.cpp" />
+    <ClCompile Include="Source\GameObject\StaticMeshObject\Character\Player\Player.cpp" />
+    <ClCompile Include="Source\SceneManager\SceneManager.cpp" />
+    <ClCompile Include="Source\Scene\Ending\Ending.cpp" />
+    <ClCompile Include="Source\Scene\GameMain\GameMain.cpp" />
+    <ClCompile Include="Source\Scene\GameOver\GameOver.cpp" />
     <ClCompile Include="Source\Scene\CSceneBase.cpp" />
-    <ClCompile Include="Source\Scene\CTitle\CTitle.cpp" />
-    <ClCompile Include="Source\SkinMesh\CSkinMesh.cpp" />
-    <ClCompile Include="Source\SkinMesh\CSkinMeshParser.cpp" />
-    <ClCompile Include="Source\Sound\CSound.cpp" />
-    <ClCompile Include="Source\Sound\CSoundManager.cpp" />
-    <ClCompile Include="Source\Sprite2D\CSprite2D.cpp" />
-    <ClCompile Include="Source\Sprite3D\CSprite3D.cpp" />
-    <ClCompile Include="Source\StaticMash\CStaticMesh.cpp" />
-    <ClCompile Include="Source\StaticMash\CStaticMeshManager.cpp" />
-    <ClCompile Include="Source\GameObject\StaticMeshObject\CStaticMeshObject.cpp" />
-    <ClCompile Include="Source\GameObject\UIObject\CUIObject.cpp" />
+    <ClCompile Include="Source\Scene\Title\Title.cpp" />
+    <ClCompile Include="Source\SkinMesh\SkinMesh.cpp" />
+    <ClCompile Include="Source\SkinMesh\SkinMeshParser.cpp" />
+    <ClCompile Include="Source\Sound\Sound.cpp" />
+    <ClCompile Include="Source\Sound\SoundManager.cpp" />
+    <ClCompile Include="Source\Sprite2D\Sprite2D.cpp" />
+    <ClCompile Include="Source\Sprite3D\Sprite3D.cpp" />
+    <ClCompile Include="Source\StaticMash\StaticMesh.cpp" />
+    <ClCompile Include="Source\StaticMash\StaticMeshManager.cpp" />
+    <ClCompile Include="Source\GameObject\StaticMeshObject\StaticMeshObject.cpp" />
+    <ClCompile Include="Source\GameObject\UIObject\UIObject.cpp" />
     <ClCompile Include="Source\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -205,39 +204,38 @@
     <ClCompile Include="Source\WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Collision\CBoundingSphere.h" />
+    <ClInclude Include="Source\Collision\BoundingSphere.h" />
     <ClInclude Include="Source\Effect\Effect.h" />
     <ClInclude Include="Source\Effekseer\include\Effekseer.h" />
     <ClInclude Include="Source\Effekseer\include\Effekseer.Modules.h" />
     <ClInclude Include="Source\Effekseer\include\Effekseer.SIMD.h" />
     <ClInclude Include="Source\Effekseer\include\EffekseerRendererDX11.h" />
-    <ClInclude Include="Source\GameObject\StaticMeshObject\CCharacter\CCharacter.h" />
-    <ClInclude Include="Source\GameObject\StaticMeshObject\CGround\CGround.h" />
-    <ClInclude Include="Source\GameObject\StaticMeshObject\Shot\CShot.h" />
-    <ClInclude Include="Source\GameObject\CSpriteObject\CSpriteObject.h" />
-    <ClInclude Include="Source\DebugText\CDebugText.h" />
+    <ClInclude Include="Source\GameObject\StaticMeshObject\Character\Character.h" />
+    <ClInclude Include="Source\GameObject\StaticMeshObject\Ground\Ground.h" />
+    <ClInclude Include="Source\GameObject\SpriteObject\SpriteObject.h" />
+    <ClInclude Include="Source\DebugText\DebugText.h" />
     <ClInclude Include="Source\DirectX\DirectX11.h" />
     <ClInclude Include="Source\DirectX\DirectX9.h" />
-    <ClInclude Include="Source\Game\CGame.h" />
-    <ClInclude Include="Source\GameObject\CGameObject.h" />
-    <ClInclude Include="Source\Main\CMain.h" />
-    <ClInclude Include="Source\GameObject\StaticMeshObject\CCharacter\Player\CPlayer.h" />
-    <ClInclude Include="Source\SceneManager\CSceneManager.h" />
-    <ClInclude Include="Source\Scene\CEnding\CEnding.h" />
-    <ClInclude Include="Source\Scene\CGameMain\CGameMain.h" />
-    <ClInclude Include="Source\Scene\CGameOver\CGameOver.h" />
+    <ClInclude Include="Source\Game\Game.h" />
+    <ClInclude Include="Source\GameObject\GameObject.h" />
+    <ClInclude Include="Source\Main\Main.h" />
+    <ClInclude Include="Source\GameObject\StaticMeshObject\Character\Player\Player.h" />
+    <ClInclude Include="Source\SceneManager\SceneManager.h" />
+    <ClInclude Include="Source\Scene\Ending\Ending.h" />
+    <ClInclude Include="Source\Scene\GameMain\GameMain.h" />
+    <ClInclude Include="Source\Scene\GameOver\GameOver.h" />
     <ClInclude Include="Source\Scene\CSceneBase.h" />
-    <ClInclude Include="Source\Scene\CTitle\CTitle.h" />
-    <ClInclude Include="Source\SkinMesh\CSkinMesh.h" />
-    <ClInclude Include="Source\SkinMesh\CSkinMeshParser.h" />
-    <ClInclude Include="Source\Sound\CSound.h" />
-    <ClInclude Include="Source\Sound\CSoundManager.h" />
-    <ClInclude Include="Source\Sprite2D\CSprite2D.h" />
-    <ClInclude Include="Source\Sprite3D\CSprite3D.h" />
-    <ClInclude Include="Source\StaticMash\CStaticMesh.h" />
-    <ClInclude Include="Source\StaticMash\CStaticMeshManager.h" />
-    <ClInclude Include="Source\GameObject\StaticMeshObject\CStaticMeshObject.h" />
-    <ClInclude Include="Source\GameObject\UIObject\CUIObject.h" />
+    <ClInclude Include="Source\Scene\Title\Title.h" />
+    <ClInclude Include="Source\SkinMesh\SkinMesh.h" />
+    <ClInclude Include="Source\SkinMesh\SkinMeshParser.h" />
+    <ClInclude Include="Source\Sound\Sound.h" />
+    <ClInclude Include="Source\Sound\SoundManager.h" />
+    <ClInclude Include="Source\Sprite2D\Sprite2D.h" />
+    <ClInclude Include="Source\Sprite3D\Sprite3D.h" />
+    <ClInclude Include="Source\StaticMash\StaticMesh.h" />
+    <ClInclude Include="Source\StaticMash\StaticMeshManager.h" />
+    <ClInclude Include="Source\GameObject\StaticMeshObject\StaticMeshObject.h" />
+    <ClInclude Include="Source\GameObject\UIObject\UIObject.h" />
     <ClInclude Include="Source\Global.h" />
     <ClInclude Include="Source\MyMacro.h" />
     <ClInclude Include="Source\stdafx.h" />

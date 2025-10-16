@@ -1,9 +1,9 @@
 #pragma once
-#include "StaticMash/CStaticMesh.h"
+#include "StaticMash/StaticMesh.h"
 #include "DirectX/DirectX11.h"
 #include "DirectX/DirectX9.h"
-#include "Sprite2D/CSprite2D.h"
-#include "GameObject/UIObject/CUIObject.h"
+#include "Sprite2D/Sprite2D.h"
+#include "GameObject/UIObject/UIObject.h"
 
 
 /**********************************************************
@@ -22,12 +22,12 @@ public:
 	virtual void Draw() = 0;
 
 	//ÉÅÉbÉVÉÖÇê⁄ë±Ç∑ÇÈ.
-	void AttachMesh(CStaticMesh& pMesh) {
+	void AttachMesh(StaticMesh& pMesh) {
 		m_pMesh = &pMesh;
 	}
 
 protected:
-	CStaticMesh* m_pMesh;
+	StaticMesh* m_pMesh;
 	DirectX9* m_pDx9;
 	DirectX11* m_pDx11;
 

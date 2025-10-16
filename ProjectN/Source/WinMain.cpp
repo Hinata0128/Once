@@ -1,4 +1,4 @@
-#include "Main\\CMain.h"
+#include "Main\\Main.h"
 #include "Global.h"
 #include "DirectX\\DirectX11.h"
 #include <crtdbg.h>	//_ASSERT_EXPR()で必要.
@@ -14,7 +14,7 @@ INT WINAPI WinMain(
 	_In_ PSTR lpCmdLine,
 	_In_ INT nCmdShow)
 {
-	CMain* pCMain = new CMain();	//初期化＆クラス宣言.
+	Main* pCMain = new Main();	//初期化＆クラス宣言.
 
 	if (pCMain != nullptr)
 	{
