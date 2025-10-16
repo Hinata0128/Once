@@ -20,7 +20,4 @@ public:
 	void Draw() override;
 
 private:
-	StaticMesh* m_pGameOver;
-	Sprite2D* m_pSpriteGameOver;
-	UIObject* m_pGameOverObj;
 };

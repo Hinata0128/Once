@@ -52,11 +52,6 @@ void SceneManager::MakeScene(List Scene)
 	{
 	//case SceneManager::Title:
 	//	m_pScene = std::make_unique<Title>();
-	//	//BGMを止める.
-	//	SoundManager::Stop(SoundManager::BGM_Over);
-	//	SoundManager::Stop(SoundManager::BGM_Ending);
-	//	//BGMのループ再生.
-	//	SoundManager::PlayLoop(SoundManager::BGM_Title);
 	//	break;
 	case SceneManager::Main:
 		m_pScene = std::make_unique<GameMain>();
@@ -68,17 +63,9 @@ void SceneManager::MakeScene(List Scene)
 		break;
 	//case SceneManager::GameOver:
 	//	m_pScene = std::make_unique<GameOver>();
-	//	//BGMを止める.
-	//	SoundManager::Stop(SoundManager::BGM_Main);
-	//	//BGMループ.
-	//	SoundManager::PlayLoop(SoundManager::BGM_Over);
 	//	break;
 	//case SceneManager::Ending:
 	//	m_pScene = std::make_unique<Ending>();
-	//	//BGMを止める.
-	//	SoundManager::Stop(SoundManager::BGM_Main);
-	//	//BGMループ.
-	//	SoundManager::PlayLoop(SoundManager::BGM_Ending);
 	//	break;
 	default:
 		break;

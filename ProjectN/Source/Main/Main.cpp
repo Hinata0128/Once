@@ -2,6 +2,10 @@
 #include "DirectX\\DirectX9.h"
 #include "DirectX\\DirectX11.h"
 #include "Game\\Game.h"
+#include "SceneManager/SceneManager.h"
+#include "StaticMash/StaticMeshManager.h"
+#include "Effect/Effect.h"
+#include "Sound/SoundManager.h"
 
 //ウィンドウを画面中央で起動を有効にする.
 //#define ENABLE_WINDOWS_CENTERING
@@ -22,10 +26,8 @@ const TCHAR APP_NAME[]	= _T( "Ones" );
 Main::Main()
 	//初期化リスト.
 	: m_hWnd	( nullptr )
-	, m_pGame	( nullptr )
+	, m_pGame	( std::make_unique<Game>(m_hWnd) )
 {
-	
-
 	//コマンドプロンプト表示.
 	//AllocConsole();
 }
@@ -36,34 +38,14 @@ Main::Main()
 //=================================================
 Main::~Main()
 {
-	SAFE_DELETE( m_pGame );
-
 	DeleteObject( m_hWnd );
-}
-
-
-//更新処理.
-void Main::Update()
-{
-	auto pDx11 = DirectX11::GetInstance();
-
-	//更新処理.
-	m_pGame->Update();
-
-	//バックバッファをクリアにする.
-	pDx11->ClearBackBuffer();
-
-	//描画処理.
-	m_pGame->Draw();
-	
-	//画面に表示.
-	pDx11->Present();
 }
 
 
 //構築処理.
 HRESULT Main::Create()
 {
+	// DirectX シングルトン取得
 	auto pDx9 = DirectX9::GetInstance();
 	auto pDx11 = DirectX11::GetInstance();
 
@@ -79,20 +61,58 @@ HRESULT Main::Create()
 		return E_FAIL;
 	}
 
-	//ゲームクラスのインスタンス生成.
-	m_pGame = new Game( m_hWnd );
+	//スタティックメッシュマネージャーの構築
+	StaticMeshManager::GetInstance()->Create(*pDx9, *pDx11);
 
-	//ゲームクラスの構築（Loadも含める）.
-	m_pGame->Create();
+	SceneManager::GetInstance()->SetDx9(pDx9);
+	SceneManager::GetInstance()->SetDx11(pDx11);
+
+
+	//Effectクラス
+	//ここに書いておかないといけない
+	//GameMainに書いてもいいけど先にLoadDateが読み込まされます.
+	Effect::GetInstance()->Create(
+		pDx11->GetDevice(),
+		pDx11->GetContext());
 
 	return S_OK;
 }
 
+//更新処理.
+void Main::Update()
+{
+	auto pDx11 = DirectX11::GetInstance();
+
+	SceneManager::GetInstance()->Update();
+
+	//バックバッファをクリアにする.
+	pDx11->ClearBackBuffer();
+
+	//描画処理.
+	SceneManager::GetInstance()->Draw();
+
+	//画面に表示.
+	pDx11->Present();
+}
+
+
+
 //データロード処理.
 HRESULT Main::LoadData()
 {
-	//データロード処理.
-	m_pGame->LoadData();
+	//サウンドデータの読み込み
+	if (SoundManager::GetInstance()->Load(m_hWnd) == false) {
+		return E_FAIL;
+	}
+
+	//Effectクラス
+	if (FAILED(Effect::GetInstance()->LoadData()))
+	{
+		return E_FAIL;
+	}
+
+
+	SceneManager::GetInstance()->Create(m_hWnd);
 
 	return S_OK;
 }

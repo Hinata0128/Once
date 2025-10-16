@@ -25,9 +25,8 @@ void StaticMeshManager::Create(DirectX9& pDx9, DirectX11& pDx11)
 	};
 	MeshList MList[] =
 	{
-		{CMeshList::EnemyA,		_T("Data\\Mesh\\Static\\Enemy\\EnemyA.x")},
-		{CMeshList::Shot, 		_T("Data\\Mesh\\Static\\Bullet\\bullet.x")},
-		{CMeshList::Collision, 	_T("Data\\Collision\\Sphere.x")},
+
+		{CMeshList::Collision, 	_T("Data\\Mesh\\Static\\Fighter\\Fighter.x")},
 	};
 	int list_max = sizeof(MList) / sizeof(MList[0]);
 	for (int i = 0; i < list_max; ++i)

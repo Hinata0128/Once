@@ -2,7 +2,7 @@
 
 #include "GameObject\\GameObject.h"
 #include "StaticMash\StaticMesh.h"
-#include "Collision\BoundingSphere.h"
+
 
 /************************************************************
 *	スタティックメッシュオブジェクトクラス.
@@ -28,25 +28,7 @@ public:
 		m_pMesh = nullptr;
 	}
 
-	//バウンディングスフィア取得.
-	BoundingSphere* GetBSphere() const
-	{
-		return m_pBSphere;
-	}
-	//短くかける関数.
-	//モデルに合わせたバウンディングスフィア作成のラッパー関数.
-	HRESULT CreateBSphereForMesh(const StaticMesh& pMesh)
-	{
-		return m_pBSphere->CreateSphereForMesh(pMesh);
-	}
-	//バウンディングスフィアをオブジェクト位置に合わせる.
-	//※モデルの原点が中心の場合を提示.
-	void UpdateBSpherePos()
-	{
-		m_pBSphere->SetPosition(m_vPosition);
-	}
 
 protected:
 	StaticMesh*		m_pMesh;
-	BoundingSphere*	m_pBSphere;
 };

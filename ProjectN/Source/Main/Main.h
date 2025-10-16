@@ -5,6 +5,8 @@
 class DirectX9;
 class DirectX11;
 class Game;
+class SceneManager;
+class StaticMeshManager;
 
 /**************************************************
 *	メインクラス.
@@ -35,5 +37,5 @@ private:
 
 private:
 	HWND			m_hWnd;	//ウィンドウハンドル.
-	Game*			m_pGame;
+	std::unique_ptr<Game> m_pGame;
 };

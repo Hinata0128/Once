@@ -20,8 +20,5 @@ public:
 	void Draw() override;
 
 private:
-	StaticMesh* m_pEnding;
-	Sprite2D* m_pSpriteEnding;
-	UIObject* m_pEndingObj;
 
 };

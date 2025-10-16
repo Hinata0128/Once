@@ -2,14 +2,11 @@
 
 StaticMeshObject::StaticMeshObject()
 	: m_pMesh			( nullptr )
-	, m_pBSphere		( nullptr )
 {
-	m_pBSphere = new BoundingSphere();
 }
 
 StaticMeshObject::~StaticMeshObject()
 {
-	SAFE_DELETE( m_pBSphere );
 	DetachMesh();
 }
 

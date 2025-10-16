@@ -11,8 +11,6 @@ public:
 	//ƒ‚ƒfƒ‹‚ÌŽí—Þ‚Ì—ñ‹“Œ^.
 	enum CMeshList
 	{
-		EnemyA,
-		Shot,
 		Collision,
 
 		max,

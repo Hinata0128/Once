@@ -20,11 +20,4 @@ public:
 	void Draw() override;
 
 private: 	
-	StaticMesh*	m_pTitle;
-	Sprite2D*		m_pSpriteTitle;
-	UIObject*		m_pTitleObj;
-
-	bool			m_isTransitioning;       // シーン遷移中フラグ
-	int				m_transitionDelayTimer;   // 遷移までのカウントダウンタイマー
-	const int		TRANSITION_DELAY_FRAMES = 30; // 例: 30フレーム待つ (約0.5秒)
 };
