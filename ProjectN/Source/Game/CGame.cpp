@@ -1,6 +1,7 @@
 #include "CGame.h"
 #include "Sound\\CSoundManager.h" // CSoundManager.hをインクルード
 #include "Effect//Effect.h"
+#include "StaticMash/CStaticMeshManager.h"
 
 //コンストラクタ.
 //初期化リストはメンバー変数の順番でする.

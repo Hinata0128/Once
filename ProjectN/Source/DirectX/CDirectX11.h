@@ -23,8 +23,17 @@
 class CDirectX11
 {
 public:
-	CDirectX11();
 	~CDirectX11();
+
+	//インスタンス取得(唯一のアクセス経路).
+//※関数の前にstaticを付けることでインスタンス生成しなくても使用できる.
+	static CDirectX11* GetInstance()
+	{
+		//唯一のインスタンスを作成する.
+		//※staticで作成されたので2回目以降は、下の1行は無視される.
+		static CDirectX11 s_Instance;	//s_:staticの意味.
+		return &s_Instance;
+	}
 
 	//DirectX11構築.
 	HRESULT Create(HWND hWnd);
@@ -45,6 +54,14 @@ public:
 	ID3D11Device* GetDevice() const { return m_pDevice11; }
 	//デバイスコンテキストを取得.
 	ID3D11DeviceContext* GetContext() const { return m_pContext11; }
+
+private:
+	CDirectX11();
+	CDirectX11(const CDirectX11& rhs) = delete;
+	//代入演算子によるコピーを禁止する.
+	//operator(オペレータ):演算子のオーバーロードで、演算の中身を拡張できる.
+	CDirectX11& operator = (const CDirectX11& rhs) = delete;
+
 
 private:
 	//デバイスとスワップチェイン作成.

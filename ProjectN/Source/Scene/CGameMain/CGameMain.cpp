@@ -26,10 +26,6 @@ CGameMain::CGameMain(CDirectX9* pDx9, CDirectX11* pDx11)
 	m_pDx11 = pDx11;
 	m_pDx9	= pDx9;
 
-
-	//スタティックメッシュマネージャーの構築
-	CStaticMeshManager::GetInstance()->Create(*pDx9, *pDx11);
-
 	//カメラの位置を変更できるところ.
 	m_Camera.vPosition = D3DXVECTOR3(0.0f, 5.0f, -5.0f); 
 	//カメラを見ているところを変更できるところ.
@@ -37,9 +33,6 @@ CGameMain::CGameMain(CDirectX9* pDx9, CDirectX11* pDx11)
 
 	//ライト情報
 	m_Light.vDirection = D3DXVECTOR3(1.5f, 1.f, -1.f);		//ライト方向.
-
-	CExplosionManager::GetInstance()->ExpClear();
-
 	Initialize();
 }
 
@@ -78,12 +71,6 @@ CGameMain::~CGameMain()
 void CGameMain::Initialize()
 {
 
-	// 爆発マネージャーの初期化
-	CExplosionManager::GetInstance()->Init(*m_pSpriteExplosion); // 初期化時にスプライトを渡す
-
-	//敵の弾の初期化
-	CEnemyShotManager::GetInstance()->Init();
-
 	// カメラの位置を初期化
 	m_Camera.vPosition = D3DXVECTOR3(0.0f, 5.0f, -5.0f);
 	m_Camera.vLook = D3DXVECTOR3(0.0f, 2.0f, 5.0f);
@@ -100,8 +87,6 @@ void CGameMain::Initialize()
 void CGameMain::Create()
 {
 
-	//スタティックメッシュマネージャーの構築
-	CStaticMeshManager::GetInstance()->Create(*m_pDx9, *m_pDx11);
 
 	//デバックテキストのインスタンス生成.
 	m_pDbgText = new CDebugText();
@@ -150,7 +135,6 @@ void CGameMain::Create()
 
 	//キャラクタークラスのインスタンス生成.
 	m_pPlayer = new CPlayer();
-	CEnemyManager::GetInstance()->SetPlayer(dynamic_cast<CPlayer*>(m_pPlayer));
 
 	//地面クラスのインスタンス生成.
 	m_pGround = new CGround();
@@ -164,8 +148,6 @@ void CGameMain::Create()
 
 
 
-	//爆発スプライトを設定
-	CExplosionManager::GetInstance()->Init(*m_pSpriteExplosion);
 
 	//スタティックメッシュの読み込み.
 	m_pStaticMeshFighter->Init(*m_pDx9, *m_pDx11,
@@ -187,24 +169,7 @@ void CGameMain::Create()
 	//バウンディングスフィアの作成.
 	m_pPlayer->CreateBSphereForMesh(*m_pStaticMeshBSohere);
 
-	// CSVから敵をロード
-	CEnemyManager::GetInstance()->LoadData();
 
-
-	// ロードされた全ての敵に対してBSphereを生成し、半径を設定します
-	for (size_t i = 0; i < CEnemyManager::GetInstance()->GetEnemyCount(); ++i)
-	{
-		CCharacter* enemy = CEnemyManager::GetInstance()->GetEnemy(i);
-		if (enemy) // 敵インスタンスが存在するか確認
-		{
-			// 各敵のバウンディングスフィアを実際に生成する
-			enemy->CreateBSphereForMesh(*m_pStaticMeshBSohere);
-			// その後、半径を設定
-			enemy->GetBSphere()->SetRadius(0.5f); // 必要に応じて適切な半径を設定.
-
-			enemy->GetBSphere()->SetPosition(D3DXVECTOR3(0.0f, 5.f, 0.0f));
-		}
-	}
 
 	//キャラクターの初期座標を決定.
 	m_pPlayer->SetPosition(0.f, 1.f, 6.f);
@@ -218,107 +183,7 @@ void CGameMain::Update()
 
 	m_Count++;
 
-	//爆破.
-	CExplosionManager::GetInstance()->Update();
 
-	//プレイヤーと敵の当たり判定.
-	for (size_t i = 0; i < CEnemyManager::GetInstance()->GetEnemyCount(); ++i)
-	{
-		CCharacter* enemy = CEnemyManager::GetInstance()->GetEnemy(i);
-		// 敵インスタンスとそれぞれのBSphereが存在するか確認
-		if (enemy && enemy->GetBSphere() && m_pPlayer->GetBSphere())
-		{
-			if (m_pPlayer->GetBSphere()->IsHit(*enemy->GetBSphere()))
-			{
-				CSoundManager::PlaySE(CSoundManager::SE_Exp);
-
-				//プレイヤーの爆発を生成
-				CExplosionManager::GetInstance()->AddExplosion(m_pPlayer->GetPosition()); // プレイヤーの位置で爆発
-
-				D3DXVECTOR3 enemyPos = enemy->GetPosition();
-				// 衝突した敵を敵マネージャーから削除
-				CEnemyManager::GetInstance()->RemoveEnemy(i);
-
-				m_isGameOverTransitioning = true;
-				m_gameOverDelayTimer = GAME_OVER_DELAY_FRAMES;
-				return; // 1体でも衝突したらループを抜ける
-			}
-		}
-	}
-
-	//敵の弾とプレイヤーの当たり判定.
-	for (size_t i = 0; i < CEnemyShotManager::GetInstance()->GetShotCount(); ++i)
-	{
-		EnemyShot* shot = CEnemyShotManager::GetInstance()->GetShot(i);
-		if (!shot)
-		{
-			continue;
-		}
-		if (shot && shot->GetBSphere()->IsHit(*m_pPlayer->GetBSphere()))
-		{
-			CSoundManager::PlaySE(CSoundManager::SE_Exp);
-
-			D3DXVECTOR3 shotPos = shot->GetPosition();
-
-			//プレイヤーの爆発を作成.
-			CExplosionManager::GetInstance()->AddExplosion(m_pPlayer->GetPosition());	//プレイヤーの位置で爆発.
-			// 衝突した敵を敵マネージャーから削除
-			CEnemyShotManager::GetInstance()->RemoveShot(i);
-
-			m_isGameOverTransitioning = true;
-			m_gameOverDelayTimer = GAME_OVER_DELAY_FRAMES;
-			return;
-		}
-	}
-
-	//プレイヤーの弾と敵の当たり判定.
-	for (size_t i = 0; i < CEnemyManager::GetInstance()->GetEnemyCount(); ++i)
-	{
-		CCharacter* enemy = CEnemyManager::GetInstance()->GetEnemy(i);
-		// 敵インスタンスが存在するか確認
-		if (!enemy)
-		{
-			continue; // 敵がいない場合はスキップ
-		}
-
-		for (int s = 0; s < ShotMax; ++s)
-		{
-			// 敵のBSphere、弾のBSphereが存在し、弾が表示されているか確認
-
-			CPlayer* player = dynamic_cast<CPlayer*>(m_pPlayer);
-			CShot& shot = player->GetShot(s);
-
-			if (enemy->GetBSphere() &&
-				shot.GetBSphere()
-				&& shot.IsDisplay())
-			{
-				if (shot.GetBSphere()->IsHit(*enemy->GetBSphere()))
-				{
-					CSoundManager::PlaySE(CSoundManager::SE_Exp);
-
-					D3DXVECTOR3 enemyPos = enemy->GetPosition();
-
-					//CExplosionManager を使って爆発を生成
-					CExplosionManager::GetInstance()->AddExplosion(D3DXVECTOR3(enemyPos.x, enemyPos.y, enemyPos.z));
-
-					// ショット側の処理
-					shot.Init(); //初期状態に戻すのが安全 (位置もリセットされる)
-
-					// 衝突した敵を敵マネージャーから削除
-					CEnemyManager::GetInstance()->RemoveEnemy(i);
-
-					m_Score += POINT;
-					//クリアのスコア.
-					if (m_Score >= GameClreaPoint)
-					{
-						m_isEndingTransitioning = true;
-						m_endingDelayTimer = ENDING_DELAY_FRAMES;
-					}
-					break; // 1体でも衝突したらループを抜ける（同時に複数の敵に当たる場合はこのbreakを削除）
-				}
-			}
-		}
-	}
 
 	//Effect制御
 	{
@@ -345,46 +210,10 @@ void CGameMain::Update()
 
 
 
-		// ゲームオーバー遷移中の処理
-	if (m_isGameOverTransitioning)
-	{
-		m_gameOverDelayTimer--;
-		if (m_gameOverDelayTimer <= 0)
-		{
-			CSceneManager::GetInstance()->LoadScene(CSceneManager::GameOver);
-			m_isGameOverTransitioning = false;
-			return; // シーン遷移後はこのフレームの残りのUpdate処理はスキップ
-		}
-		return; // 他のUpdate処理をスキップ
-	}
-
-	if (m_isEndingTransitioning)
-	{
-		m_endingDelayTimer--; // タイマーを減らす
-		if (m_endingDelayTimer <= 0)
-		{
-			CSceneManager::GetInstance()->LoadScene(CSceneManager::Ending);
-			m_isEndingTransitioning = false; // フラグをリセット
-			return; // シーン遷移後はこのフレームの残りのUpdate処理はスキップ
-		}
-		return;
-	}
-	//強制的にゲームオーバーへ遷移.
-	if (m_Count > 2700)
-	{
-		CSceneManager::GetInstance()->LoadScene(CSceneManager::GameOver);
-		return;
-	}
-
 	//地面.
 	m_pGround->Update();
 	//プレイヤー.
 	m_pPlayer->Update();
-
-	//敵.
-	CEnemyManager::GetInstance()->Update();
-	//敵の弾.
-	CEnemyShotManager::GetInstance()->Update();
 
 
 
@@ -400,10 +229,6 @@ void CGameMain::Draw()
 	//プレイヤー表示.
 	m_pPlayer->Draw(m_mView, m_mProj, m_Light, m_Camera);
 	
-	CEnemyManager::GetInstance()->Draw(m_mView, m_mProj, m_Light, m_Camera);
-
-	CEnemyShotManager::GetInstance()->Draw(m_mView, m_mProj, m_Light, m_Camera);
-
 	//Effectクラス
 	Effect::GetInstance()->Draw(m_mView, m_mProj, m_Light, m_Camera);
 	
@@ -416,10 +241,6 @@ void CGameMain::Draw()
 
 	
 
-	m_pDx11->SetDepth(false);
-	//爆発マネージャーを使って全ての爆発を表示
-	CExplosionManager::GetInstance()->Draw(m_mView, m_mProj);
-	m_pDx11->SetDepth(true);
 
 	if (m_pDbgText)
 

@@ -50,6 +50,8 @@ private:
 	//operator(オペレータ):演算子のオーバーロードで、演算の中身を拡張できる.
 	CStaticMeshManager& operator = (const CStaticMeshManager& rhs) = delete;
 
+
+
 	CStaticMesh* m_pMesh[CMeshList::max];
 
 };

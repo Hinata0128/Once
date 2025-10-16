@@ -40,10 +40,7 @@ void CEnding::Update()
 {
 	CSoundManager::Stop(CSoundManager::BGM_Main);
 
-	if (GetAsyncKeyState(VK_RETURN) & 0x0001)
-	{
-		CSceneManager::GetInstance()->LoadScene(CSceneManager::Title);
-	}
+
 }
 
 void CEnding::Draw()

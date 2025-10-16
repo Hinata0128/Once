@@ -5,13 +5,9 @@
 
 #include "GameObject/StaticMeshObject/CGround/CGround.h"
 #include "GameObject/StaticMeshObject/CCharacter/Player/CPlayer.h"
-#include "GameObject/StaticMeshObject/CCharacter/Enemy/EnemyManager/CEnemyManager.h"
-#include "GameObject/CSpriteObject/Explosion/CExplosionManager.h"
-#include "GameObject/StaticMeshObject/EnenyShot/CEnemyShotManager.h"
 #include "GameObject/StaticMeshObject/Shot/CShot.h"
 #include "DebugText/CDebugText.h"
 #include "GameObject/StaticMeshObject/CCharacter/CCharacter.h"
-#include "GameObject/StaticMeshObject/EnenyShot/EnemyShot.h"
 
 
 /*********************************************

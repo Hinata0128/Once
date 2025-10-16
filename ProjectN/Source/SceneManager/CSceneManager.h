@@ -15,10 +15,10 @@ public:
 	//シーンリストの列挙型.
 	enum List
 	{
-		Title,
+		//Title,
 		GameMain,
-		GameOver,
-		Ending,
+		//GameOver,
+		//Ending,
 
 		max,
 	};

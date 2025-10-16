@@ -38,10 +38,6 @@ void CGameOver::Create()
 
 void CGameOver::Update()
 {
-	if (GetAsyncKeyState(VK_RETURN) & 0x0001)
-	{
-		CSceneManager::GetInstance()->LoadScene(CSceneManager::Title);
-	}
 }
 
 void CGameOver::Draw()
