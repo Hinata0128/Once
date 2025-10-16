@@ -174,7 +174,6 @@
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdafx.h</ForcedIncludeFiles>
     </ClCompile>
     <ClCompile Include="Source\DirectX\DirectX9.cpp" />
-    <ClCompile Include="Source\Game\Game.cpp" />
     <ClCompile Include="Source\GameObject\GameObject.cpp" />
     <ClCompile Include="Source\Main\Main.cpp" />
     <ClCompile Include="Source\SceneManager\SceneManager.cpp" />
@@ -209,7 +208,6 @@
     <ClInclude Include="Source\GameObject\SpriteObject\SpriteObject.h" />
     <ClInclude Include="Source\DirectX\DirectX11.h" />
     <ClInclude Include="Source\DirectX\DirectX9.h" />
-    <ClInclude Include="Source\Game\Game.h" />
     <ClInclude Include="Source\GameObject\GameObject.h" />
     <ClInclude Include="Source\Main\Main.h" />
     <ClInclude Include="Source\SceneManager\SceneManager.h" />

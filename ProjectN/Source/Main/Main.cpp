@@ -1,7 +1,6 @@
 #include "Main.h"
 #include "DirectX\\DirectX9.h"
 #include "DirectX\\DirectX11.h"
-#include "Game\\Game.h"
 #include "SceneManager/SceneManager.h"
 #include "StaticMash/StaticMeshManager.h"
 #include "Effect/Effect.h"
@@ -26,7 +25,6 @@ const TCHAR APP_NAME[]	= _T( "Ones" );
 Main::Main()
 	//初期化リスト.
 	: m_hWnd	( nullptr )
-	, m_pGame	( std::make_unique<Game>(m_hWnd) )
 {
 	//コマンドプロンプト表示.
 	//AllocConsole();

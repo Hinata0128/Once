@@ -31,15 +31,15 @@ public:
 
 private:
 	//ゲームで扱うスプライトデータ(使いまわす資源).
-	Sprite3D*			m_pSp3D;
+	std::unique_ptr<Sprite3D> m_pSp3D;
 
 	//スタティックメッシュ(使いまわす資源)
-	StaticMesh*		m_pStaticMeshGround;	//地面.
+	std::unique_ptr<StaticMesh> m_pStaticMeshGround;	//地面.
 
 	//スタティックメッシュオブジェクトクラス.
-	StaticMeshObject* m_pStcMeshObj;
+	std::unique_ptr<StaticMeshObject> m_pStcMeshObj;
 
 	//地面クラス.
-	Ground*			m_pGround;
+	std::unique_ptr<Ground>	m_pGround;
 
 };

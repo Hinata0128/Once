@@ -37,5 +37,4 @@ private:
 
 private:
 	HWND			m_hWnd;	//ウィンドウハンドル.
-	std::unique_ptr<Game> m_pGame;
 };

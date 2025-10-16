@@ -4,11 +4,11 @@
 
 GameMain::GameMain()
 	: CSceneBase			() 
-	, m_pStcMeshObj			( nullptr )
+	, m_pStcMeshObj			( std::make_unique<StaticMeshObject>() )
 
-	, m_pStaticMeshGround	( nullptr )
+	, m_pStaticMeshGround	( std::make_unique<StaticMesh>() )
 
-	, m_pGround				( nullptr )
+	, m_pGround				( std::make_unique<Ground>() )
 
 {
 	m_pDx11 = DirectX11::GetInstance();
@@ -26,13 +26,6 @@ GameMain::GameMain()
 
 GameMain::~GameMain()
 {
-	//地面の破棄.
-	SAFE_DELETE(m_pGround);
-
-	//スタティックメッシュオブジェクトクラスの破棄.
-	SAFE_DELETE(m_pStcMeshObj);
-
-
 	// 外部で作成しているので、ここでは破棄しない
 	m_hWnd = nullptr;
 	m_pDx11 = nullptr;
@@ -53,14 +46,6 @@ void GameMain::Initialize()
 
 void GameMain::Create()
 {
-
-	//スタティックメッシュオブジェクトクラスのインスタンス生成.
-	m_pStcMeshObj = new StaticMeshObject();
-
-	//地面クラスのインスタンス生成.
-	m_pGround = new Ground();
-	m_pStaticMeshGround = new StaticMesh();
-
 	//地面の読み込み.
 	m_pStaticMeshGround->Init(*m_pDx9, *m_pDx11,
 		_T("Data\\Mesh\\Static\\Ground\\ground.x"));
