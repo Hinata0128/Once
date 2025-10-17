@@ -22,8 +22,15 @@ public:
 	//メッシュを切り離す.
 	void DetachMesh();
 
+public:
+	//セット・ゲット関数.
+	//アニメーションの再生用セット関数.
+	void SetIsLoop(const bool& IsLoop);
+
+
 
 protected:
 	SkinMesh*					m_pMesh;
 	LPD3DXANIMATIONCONTROLLER	m_pAnimCtrl;	//アニメーションコントローラ
+	bool						m_Loop;	//アニメーションのループ再生.
 };
