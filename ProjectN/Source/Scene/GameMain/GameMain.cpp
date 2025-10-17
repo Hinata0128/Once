@@ -6,8 +6,6 @@ GameMain::GameMain()
 	: CSceneBase			() 
 	, m_pStcMeshObj			( std::make_unique<StaticMeshObject>() )
 
-	, m_pStaticMeshGround	( std::make_unique<StaticMesh>() )
-
 	, m_pGround				( std::make_unique<Ground>() )
 
 	, m_pPlayer				(std::make_unique<Player>())
@@ -44,13 +42,6 @@ void GameMain::Initialize()
 
 void GameMain::Create()
 {
-	//地面の読み込み.
-	m_pStaticMeshGround->Init(_T("Data\\Mesh\\Static\\Ground\\ground.x"));
-
-
-
-	//地面スプライトを設定.
-	m_pGround->AttachMesh(*m_pStaticMeshGround);
 
 }
 

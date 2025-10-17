@@ -27,6 +27,7 @@ void StaticMeshManager::Create()
 	{
 
 		{CMeshList::Collision, 	_T("Data\\Mesh\\Static\\Fighter\\Fighter.x")},
+		{CMeshList::Ground,_T("Data\\Mesh\\Static\\Ground\\ground.x")},
 	};
 	int list_max = sizeof(MList) / sizeof(MList[0]);
 	for (int i = 0; i < list_max; ++i)

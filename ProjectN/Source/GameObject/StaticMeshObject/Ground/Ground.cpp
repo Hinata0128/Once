@@ -1,7 +1,10 @@
 #include "Ground.h"
+#include "StaticMash/StaticMeshManager.h"
 
 Ground::Ground()
 {
+	AttachMesh(*StaticMeshManager::GetInstance()->GetMeshInstance(StaticMeshManager::CMeshList::Ground));
+
 }
 
 Ground::~Ground()

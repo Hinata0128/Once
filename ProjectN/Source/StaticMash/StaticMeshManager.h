@@ -12,6 +12,7 @@ public:
 	enum CMeshList
 	{
 		Collision,
+		Ground,
 
 		max,
 	};
