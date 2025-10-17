@@ -1,11 +1,11 @@
 #pragma once
-#include "GameObject/SkinMeshObject/SkinMeshObject.h"
+#include "GameObject/SkinMeshObject/Character/Character.h"
 
 /**************************************************
 *	ザコクラス
 **/
 class Player
-	: public SkinMeshObject
+	: public Character
 {
 public:
 	Player();

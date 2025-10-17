@@ -61,5 +61,5 @@ void Player::Draw(
 	D3DXMATRIX& View, D3DXMATRIX& Proj, LIGHT& Light, CAMERA& Camera)
 {
 	m_pMesh->SetAnimSpeed(m_AnimSpeed);
-	SkinMeshObject::Draw(View, Proj, Light, Camera);
+	Character::Draw(View, Proj, Light, Camera);
 }

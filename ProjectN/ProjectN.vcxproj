@@ -167,7 +167,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Effect\Effect.cpp" />
-    <ClCompile Include="Source\GameObject\SkinMeshObject\Player\Player.cpp" />
+    <ClCompile Include="Source\GameObject\SkinMeshObject\Character\Character.cpp" />
+    <ClCompile Include="Source\GameObject\SkinMeshObject\Character\Player\Player.cpp" />
     <ClCompile Include="Source\GameObject\SkinMeshObject\SkinMeshObject.cpp" />
     <ClCompile Include="Source\GameObject\StaticMeshObject\Ground\Ground.cpp" />
     <ClCompile Include="Source\GameObject\SpriteObject\SpriteObject.cpp" />
@@ -207,7 +208,8 @@
     <ClInclude Include="Source\Effekseer\include\Effekseer.Modules.h" />
     <ClInclude Include="Source\Effekseer\include\Effekseer.SIMD.h" />
     <ClInclude Include="Source\Effekseer\include\EffekseerRendererDX11.h" />
-    <ClInclude Include="Source\GameObject\SkinMeshObject\Player\Player.h" />
+    <ClInclude Include="Source\GameObject\SkinMeshObject\Character\Character.h" />
+    <ClInclude Include="Source\GameObject\SkinMeshObject\Character\Player\Player.h" />
     <ClInclude Include="Source\GameObject\SkinMeshObject\SkinMeshObject.h" />
     <ClInclude Include="Source\GameObject\StaticMeshObject\Ground\Ground.h" />
     <ClInclude Include="Source\GameObject\SpriteObject\SpriteObject.h" />

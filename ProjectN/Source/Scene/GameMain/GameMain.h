@@ -4,7 +4,7 @@
 #include "SceneManager/SceneManager.h"
 
 #include "GameObject/StaticMeshObject/Ground/Ground.h"
-#include "GameObject/SkinMeshObject/Player/Player.h"
+#include "GameObject/SkinMeshObject/Character/Player/Player.h"
 
 
 /*********************************************
