@@ -10,6 +10,9 @@ GameMain::GameMain()
 
 	, m_pGround				( std::make_unique<Ground>() )
 
+	, m_pPlayer				(std::make_unique<Player>())
+	, m_pSkinMesh			(std::make_unique<SkinMesh>())
+
 {
 	m_pDx11 = DirectX11::GetInstance();
 	m_pDx9	= DirectX9::GetInstance();
@@ -38,10 +41,6 @@ void GameMain::Initialize()
 	// カメラの位置を初期化
 	m_Camera.vPosition = D3DXVECTOR3(0.0f, 5.0f, -5.0f);
 	m_Camera.vLook = D3DXVECTOR3(0.0f, 2.0f, 5.0f);
-
-	m_Score = 0;
-	m_Count = 0;
-
 }
 
 void GameMain::Create()
@@ -49,8 +48,16 @@ void GameMain::Create()
 	//地面の読み込み.
 	m_pStaticMeshGround->Init(_T("Data\\Mesh\\Static\\Ground\\ground.x"));
 
+	//スキンメッシュの読み込み
+	m_pSkinMesh->Init(_T("Data\\Mesh\\Skin\\zako\\zako.x"));
+
+
 	//地面スプライトを設定.
 	m_pGround->AttachMesh(*m_pStaticMeshGround);
+	m_pPlayer->AttachMesh(*m_pSkinMesh);
+	m_pPlayer->SetScale(0.002f);
+	m_pPlayer->SetPosition(0.f, 0.f, 0.f);
+
 }
 
 void GameMain::Update()
@@ -81,6 +88,8 @@ void GameMain::Update()
 	//地面.
 	m_pGround->Update();
 
+	m_pPlayer->Update();
+
 }
 
 void GameMain::Draw()
@@ -90,6 +99,7 @@ void GameMain::Draw()
 
 		//地面表示.
 	m_pGround->Draw(m_mView, m_mProj, m_Light, m_Camera);
+	m_pPlayer->Draw(m_mView, m_mProj, m_Light, m_Camera);
 	
 	//Effectクラス
 	Effect::GetInstance()->Draw(m_mView, m_mProj, m_Light, m_Camera);

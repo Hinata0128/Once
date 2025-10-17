@@ -4,6 +4,7 @@
 #include "SceneManager/SceneManager.h"
 
 #include "GameObject/StaticMeshObject/Ground/Ground.h"
+#include "GameObject/SkinMeshObject/Player/Player.h"
 
 
 /*********************************************
@@ -42,4 +43,9 @@ private:
 	//地面クラス.
 	std::unique_ptr<Ground>	m_pGround;
 
+	//プレイヤークラス.
+	std::unique_ptr<Player> m_pPlayer;
+
+	//スキンメッシュ
+	std::unique_ptr<SkinMesh> m_pSkinMesh;
 };
