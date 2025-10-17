@@ -178,6 +178,7 @@
     </ClCompile>
     <ClCompile Include="Source\DirectX\DirectX9.cpp" />
     <ClCompile Include="Source\GameObject\GameObject.cpp" />
+    <ClCompile Include="Source\GameObject\StaticMeshObject\Shot\Shot.cpp" />
     <ClCompile Include="Source\Main\Main.cpp" />
     <ClCompile Include="Source\SceneManager\SceneManager.cpp" />
     <ClCompile Include="Source\Scene\Ending\Ending.cpp" />
@@ -216,6 +217,7 @@
     <ClInclude Include="Source\DirectX\DirectX11.h" />
     <ClInclude Include="Source\DirectX\DirectX9.h" />
     <ClInclude Include="Source\GameObject\GameObject.h" />
+    <ClInclude Include="Source\GameObject\StaticMeshObject\Shot\Shot.h" />
     <ClInclude Include="Source\Main\Main.h" />
     <ClInclude Include="Source\SceneManager\SceneManager.h" />
     <ClInclude Include="Source\Scene\Ending\Ending.h" />
