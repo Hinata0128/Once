@@ -47,8 +47,7 @@ void GameMain::Initialize()
 void GameMain::Create()
 {
 	//地面の読み込み.
-	m_pStaticMeshGround->Init(*m_pDx9, *m_pDx11,
-		_T("Data\\Mesh\\Static\\Ground\\ground.x"));
+	m_pStaticMeshGround->Init(_T("Data\\Mesh\\Static\\Ground\\ground.x"));
 
 	//地面スプライトを設定.
 	m_pGround->AttachMesh(*m_pStaticMeshGround);

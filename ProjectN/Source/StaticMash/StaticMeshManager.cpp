@@ -12,7 +12,7 @@ StaticMeshManager::~StaticMeshManager()
 {
 }
 
-void StaticMeshManager::Create(DirectX9& pDx9, DirectX11& pDx11)
+void StaticMeshManager::Create()
 {
 	for (int i = 0; i < CMeshList::max; ++i)
 	{
@@ -31,10 +31,7 @@ void StaticMeshManager::Create(DirectX9& pDx9, DirectX11& pDx11)
 	int list_max = sizeof(MList) / sizeof(MList[0]);
 	for (int i = 0; i < list_max; ++i)
 	{
-		if (FAILED(m_pMesh[i]->Init(
-			pDx9,
-			pDx11,
-			MList[i].path))) {
+		if (FAILED(m_pMesh[i]->Init( MList[i].path ))) {
 
 			return;
 		};

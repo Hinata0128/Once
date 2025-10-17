@@ -52,13 +52,12 @@ StaticMesh::~StaticMesh()
 }
 
 //‰Šú‰»ŠÖ”.
-HRESULT StaticMesh::Init(
-	DirectX9& pDx9, DirectX11& pDx11, LPCTSTR lpFileName )
+HRESULT StaticMesh::Init( LPCTSTR lpFileName )
 {
-	m_pDx9 = &pDx9;
+	m_pDx9 = DirectX9::GetInstance();
 	m_pDevice9 = m_pDx9->GetDevice();
 
-	m_pDx11 = &pDx11;
+	m_pDx11 = DirectX11::GetInstance();
 	m_pDevice11 = m_pDx11->GetDevice();
 	m_pContext11 = m_pDx11->GetContext();
 

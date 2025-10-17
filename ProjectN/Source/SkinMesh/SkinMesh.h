@@ -89,7 +89,7 @@ public:
 	SkinMesh();	//コンストラクタ.
 	~SkinMesh();	//デストラクタ.
 
-	HRESULT Init(DirectX9& pDx9, DirectX11& pDx11, LPCTSTR FileName );
+	HRESULT Init( LPCTSTR FileName );
 
 	//解放関数.
 	HRESULT Release();

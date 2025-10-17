@@ -60,7 +60,7 @@ HRESULT Main::Create()
 	}
 
 	//スタティックメッシュマネージャーの構築
-	StaticMeshManager::GetInstance()->Create(*pDx9, *pDx11);
+	StaticMeshManager::GetInstance()->Create();
 
 	SceneManager::GetInstance()->SetDx9(pDx9);
 	SceneManager::GetInstance()->SetDx11(pDx11);

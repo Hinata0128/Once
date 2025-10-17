@@ -18,7 +18,7 @@ public:
 public:
 		~StaticMeshManager();
 
-		void Create(DirectX9& pDx9, DirectX11& pDx11);
+		void Create();
 		void Init();
 
 		//スタティッククラスのゲットインスタンスを書く
