@@ -11,7 +11,6 @@ GameMain::GameMain()
 	, m_pGround				( std::make_unique<Ground>() )
 
 	, m_pPlayer				(std::make_unique<Player>())
-	, m_pSkinMesh			(std::make_unique<SkinMesh>())
 
 {
 	m_pDx11 = DirectX11::GetInstance();
@@ -48,15 +47,10 @@ void GameMain::Create()
 	//地面の読み込み.
 	m_pStaticMeshGround->Init(_T("Data\\Mesh\\Static\\Ground\\ground.x"));
 
-	//スキンメッシュの読み込み
-	m_pSkinMesh->Init(_T("Data\\Mesh\\Skin\\zako\\zako.x"));
 
 
 	//地面スプライトを設定.
 	m_pGround->AttachMesh(*m_pStaticMeshGround);
-	m_pPlayer->AttachMesh(*m_pSkinMesh);
-	m_pPlayer->SetScale(0.002f);
-	m_pPlayer->SetPosition(0.f, 0.f, 0.f);
 
 }
 

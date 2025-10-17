@@ -3,8 +3,11 @@
 #include "DirectX\\DirectX11.h"
 #include "SceneManager/SceneManager.h"
 #include "StaticMash/StaticMeshManager.h"
+#include "SkinMeshManager/SkinMeshManager.h"
+
 #include "Effect/Effect.h"
 #include "Sound/SoundManager.h"
+
 
 //ウィンドウを画面中央で起動を有効にする.
 //#define ENABLE_WINDOWS_CENTERING
@@ -61,6 +64,7 @@ HRESULT Main::Create()
 
 	//スタティックメッシュマネージャーの構築
 	StaticMeshManager::GetInstance()->Create();
+	SkinMeshManager::GetInstance()->Create();
 
 	SceneManager::GetInstance()->SetDx9(pDx9);
 	SceneManager::GetInstance()->SetDx11(pDx11);

@@ -7,6 +7,7 @@ class DirectX11;
 class Game;
 class SceneManager;
 class StaticMeshManager;
+class SkinMeshManager;
 
 /**************************************************
 *	ƒƒCƒ“ƒNƒ‰ƒX.

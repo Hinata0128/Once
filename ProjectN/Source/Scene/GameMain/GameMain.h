@@ -46,6 +46,4 @@ private:
 	//プレイヤークラス.
 	std::unique_ptr<Player> m_pPlayer;
 
-	//スキンメッシュ
-	std::unique_ptr<SkinMesh> m_pSkinMesh;
 };

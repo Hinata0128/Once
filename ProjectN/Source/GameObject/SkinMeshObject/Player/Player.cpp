@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "SkinMeshManager/SkinMeshManager.h"
 
 Player::Player()
 	: m_AnimNo()
@@ -6,6 +7,9 @@ Player::Player()
 	, m_AnimSpeed(0.0002)
 	, m_BonePos()
 {
+	AttachMesh(*SkinMeshManager::GetInstance()->GetSkinMeshInstance(SkinMeshManager::SkinList::Player));
+	SetScale(0.02f);
+	SetPosition(0.f, 0.f, 2.f);
 }
 
 Player::~Player()
