@@ -13,6 +13,7 @@ public:
 	{
 		Bullet,
 		Ground,
+		Collision,
 
 		max,
 	};

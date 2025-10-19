@@ -1,5 +1,8 @@
 #pragma once
+#include <vector>
 #include "GameObject/SkinMeshObject/Character/Character.h"
+
+class PShot;
 
 /**************************************************
 *	ザコクラス
@@ -22,4 +25,6 @@ protected:
 	double			m_AnimSpeed;		//アニメーション速度
 	D3DXVECTOR3		m_BonePos;			//ボーン座標
 
+	std::vector<std::unique_ptr<PShot>> m_pShotList;
+	D3DXVECTOR3 m_ShotOffset; // 弾発射位置のオフセット
 };
