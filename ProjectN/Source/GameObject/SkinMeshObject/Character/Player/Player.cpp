@@ -1,5 +1,5 @@
 #include "Player.h"
-#include "System/Manager/SkinMeshManager/SkinMeshManager.h"
+#include "System/Manager/00_SkinMeshManager/SkinMeshManager.h"
 
 Player::Player()
 	: m_AnimNo()
@@ -19,6 +19,25 @@ Player::~Player()
 void Player::Update()
 {
 	m_pMesh->SetAnimSpeed(m_AnimSpeed);
+
+	constexpr float add_value = 0.1f;
+
+	if (GetAsyncKeyState('W') & 0X8000)
+	{
+		m_vPosition.z += add_value;
+	}
+	if (GetAsyncKeyState('S') & 0X8000)
+	{
+		m_vPosition.z -= add_value;
+	}
+	if (GetAsyncKeyState('D') & 0X8000)
+	{
+		m_vPosition.x += add_value;
+	}
+	if (GetAsyncKeyState('A') & 0X8000)
+	{
+		m_vPosition.x -= add_value;
+	}
 
 	//アニメーション切替
 	if (GetAsyncKeyState('N') & 0x8000)

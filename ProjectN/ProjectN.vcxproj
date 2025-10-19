@@ -186,7 +186,7 @@
     <ClCompile Include="Source\Scene\GameOver\GameOver.cpp" />
     <ClCompile Include="Source\Scene\CSceneBase.cpp" />
     <ClCompile Include="Source\Scene\Title\Title.cpp" />
-    <ClCompile Include="Source\System\Manager\SkinMeshManager\SkinMeshManager.cpp" />
+    <ClCompile Include="Source\System\Manager\00_SkinMeshManager\SkinMeshManager.cpp" />
     <ClCompile Include="Source\SkinMesh\SkinMesh.cpp" />
     <ClCompile Include="Source\SkinMesh\SkinMeshParser.cpp" />
     <ClCompile Include="Source\Sound\Sound.cpp" />
@@ -194,13 +194,14 @@
     <ClCompile Include="Source\Sprite2D\Sprite2D.cpp" />
     <ClCompile Include="Source\Sprite3D\Sprite3D.cpp" />
     <ClCompile Include="Source\StaticMash\StaticMesh.cpp" />
-    <ClCompile Include="Source\System\Manager\StaticMeshManager\StaticMeshManager.cpp" />
+    <ClCompile Include="Source\System\Manager\01_StaticMeshManager\StaticMeshManager.cpp" />
     <ClCompile Include="Source\GameObject\StaticMeshObject\StaticMeshObject.cpp" />
     <ClCompile Include="Source\GameObject\UIObject\UIObject.cpp" />
     <ClCompile Include="Source\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Source\System\Manager\02_PShotManager\PShotManager.cpp" />
     <ClCompile Include="Source\WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -225,7 +226,7 @@
     <ClInclude Include="Source\Scene\GameOver\GameOver.h" />
     <ClInclude Include="Source\Scene\CSceneBase.h" />
     <ClInclude Include="Source\Scene\Title\Title.h" />
-    <ClInclude Include="Source\System\Manager\SkinMeshManager\SkinMeshManager.h" />
+    <ClInclude Include="Source\System\Manager\00_SkinMeshManager\SkinMeshManager.h" />
     <ClInclude Include="Source\SkinMesh\SkinMesh.h" />
     <ClInclude Include="Source\SkinMesh\SkinMeshParser.h" />
     <ClInclude Include="Source\Sound\Sound.h" />
@@ -233,12 +234,13 @@
     <ClInclude Include="Source\Sprite2D\Sprite2D.h" />
     <ClInclude Include="Source\Sprite3D\Sprite3D.h" />
     <ClInclude Include="Source\StaticMash\StaticMesh.h" />
-    <ClInclude Include="Source\System\Manager\StaticMeshManager\StaticMeshManager.h" />
+    <ClInclude Include="Source\System\Manager\01_StaticMeshManager\StaticMeshManager.h" />
     <ClInclude Include="Source\GameObject\StaticMeshObject\StaticMeshObject.h" />
     <ClInclude Include="Source\GameObject\UIObject\UIObject.h" />
     <ClInclude Include="Source\Global.h" />
     <ClInclude Include="Source\MyMacro.h" />
     <ClInclude Include="Source\stdafx.h" />
+    <ClInclude Include="Source\System\Manager\02_PShotManager\PShotManager.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Data\Shader\Ray.hlsl">
