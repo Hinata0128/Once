@@ -96,7 +96,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>Source;Source\Effekseer\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Source;Source;Source\Effekseer\include;Source</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -114,7 +114,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>Source\Effekseer\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Source;Source\Effekseer\include;Source</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -134,7 +134,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>Source;Source\Effekseer\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Source;Source;Source\Effekseer\include;Source</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -153,7 +153,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
-      <AdditionalIncludeDirectories>Source\Effekseer\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Source;Source\Effekseer\include;Source</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
@@ -186,7 +186,7 @@
     <ClCompile Include="Source\Scene\GameOver\GameOver.cpp" />
     <ClCompile Include="Source\Scene\CSceneBase.cpp" />
     <ClCompile Include="Source\Scene\Title\Title.cpp" />
-    <ClCompile Include="Source\SkinMeshManager\SkinMeshManager.cpp" />
+    <ClCompile Include="Source\System\Manager\SkinMeshManager\SkinMeshManager.cpp" />
     <ClCompile Include="Source\SkinMesh\SkinMesh.cpp" />
     <ClCompile Include="Source\SkinMesh\SkinMeshParser.cpp" />
     <ClCompile Include="Source\Sound\Sound.cpp" />
@@ -194,7 +194,7 @@
     <ClCompile Include="Source\Sprite2D\Sprite2D.cpp" />
     <ClCompile Include="Source\Sprite3D\Sprite3D.cpp" />
     <ClCompile Include="Source\StaticMash\StaticMesh.cpp" />
-    <ClCompile Include="Source\StaticMash\StaticMeshManager.cpp" />
+    <ClCompile Include="Source\System\Manager\StaticMeshManager\StaticMeshManager.cpp" />
     <ClCompile Include="Source\GameObject\StaticMeshObject\StaticMeshObject.cpp" />
     <ClCompile Include="Source\GameObject\UIObject\UIObject.cpp" />
     <ClCompile Include="Source\stdafx.cpp">
@@ -225,7 +225,7 @@
     <ClInclude Include="Source\Scene\GameOver\GameOver.h" />
     <ClInclude Include="Source\Scene\CSceneBase.h" />
     <ClInclude Include="Source\Scene\Title\Title.h" />
-    <ClInclude Include="Source\SkinMeshManager\SkinMeshManager.h" />
+    <ClInclude Include="Source\System\Manager\SkinMeshManager\SkinMeshManager.h" />
     <ClInclude Include="Source\SkinMesh\SkinMesh.h" />
     <ClInclude Include="Source\SkinMesh\SkinMeshParser.h" />
     <ClInclude Include="Source\Sound\Sound.h" />
@@ -233,7 +233,7 @@
     <ClInclude Include="Source\Sprite2D\Sprite2D.h" />
     <ClInclude Include="Source\Sprite3D\Sprite3D.h" />
     <ClInclude Include="Source\StaticMash\StaticMesh.h" />
-    <ClInclude Include="Source\StaticMash\StaticMeshManager.h" />
+    <ClInclude Include="Source\System\Manager\StaticMeshManager\StaticMeshManager.h" />
     <ClInclude Include="Source\GameObject\StaticMeshObject\StaticMeshObject.h" />
     <ClInclude Include="Source\GameObject\UIObject\UIObject.h" />
     <ClInclude Include="Source\Global.h" />

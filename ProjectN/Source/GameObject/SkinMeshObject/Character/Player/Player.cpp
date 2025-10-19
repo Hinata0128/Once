@@ -1,5 +1,5 @@
 #include "Player.h"
-#include "SkinMeshManager/SkinMeshManager.h"
+#include "System/Manager/SkinMeshManager/SkinMeshManager.h"
 
 Player::Player()
 	: m_AnimNo()

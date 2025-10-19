@@ -2,9 +2,8 @@
 #include "DirectX\\DirectX9.h"
 #include "DirectX\\DirectX11.h"
 #include "SceneManager/SceneManager.h"
-#include "StaticMash/StaticMeshManager.h"
-#include "SkinMeshManager/SkinMeshManager.h"
-
+#include "System/Manager/StaticMeshManager/StaticMeshManager.h"
+#include "System/Manager/SkinMeshManager/SkinMeshManager.h"
 #include "Effect/Effect.h"
 #include "Sound/SoundManager.h"
 

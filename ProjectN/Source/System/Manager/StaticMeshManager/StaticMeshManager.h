@@ -1,5 +1,5 @@
 #pragma once
-#include "StaticMesh.h"
+#include "StaticMash\\StaticMesh.h"
 
 /**********************************************
 *	スタティックメッシュマネージャークラス.
