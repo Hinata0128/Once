@@ -26,7 +26,7 @@ void StaticMeshManager::Create()
 	MeshList MList[] =
 	{
 
-		{CMeshList::Collision, 	_T("Data\\Mesh\\Static\\Fighter\\Fighter.x")},
+		{CMeshList::Bullet, 	_T("Data\\Mesh\\Static\\Bullet\\bullet.x")},
 		{CMeshList::Ground,_T("Data\\Mesh\\Static\\Ground\\ground.x")},
 	};
 	int list_max = sizeof(MList) / sizeof(MList[0]);
