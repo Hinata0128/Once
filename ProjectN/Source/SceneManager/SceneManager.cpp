@@ -55,11 +55,6 @@ void SceneManager::MakeScene(List Scene)
 	//	break;
 	case SceneManager::Main:
 		m_pScene = std::make_unique<GameMain>();
-		//SE‚ğ~‚ß‚é.
-		//BGM‚ğ~‚ß‚é.
-		SoundManager::Stop(SoundManager::BGM_Title);
-		//BGM‚Ìƒ‹[ƒvÄ¶.
-		SoundManager::PlayLoop(SoundManager::BGM_Main);
 		break;
 	//case SceneManager::GameOver:
 	//	m_pScene = std::make_unique<GameOver>();
