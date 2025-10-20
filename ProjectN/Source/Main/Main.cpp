@@ -78,15 +78,10 @@ HRESULT Main::Create()
 //=================================================
 void Main::Update()
 {
-	// ImGuiの新しいフレームを開始する (描画の前に)
-	// ★ NewFrameSetting は Update の最初に置き、UI構築ロジックとペアにします
 	ImGuiManager::GetInstance()->NewFrameSetting();
 
-	// 1. Sceneの更新
 	SceneManager::GetInstance()->Update();
 
-	// 2. ImGuiのUI構築ロジック
-	// ★ UI構築は Update で行い、Render は Draw に移動します
 	ImGui::Begin("My Debug Window");
 	ImGui::Text("Hello, ImGui!");
 	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
@@ -102,8 +97,6 @@ void Main::Update()
 	ImGui::Checkbox("Enable Feature", &m_bFeatureEnabled);
 
 	ImGui::End();
-
-	// ImGui構築が完了し、Drawフェーズへ移行します
 }
 
 //=================================================
@@ -113,14 +106,11 @@ void Main::Draw()
 {
 	auto pDx11 = DirectX11::GetInstance();
 
-	// バックバッファをクリア
+	//バックバッファをクリア
 	pDx11->ClearBackBuffer();
 
-	// 1. Scene描画 (3Dオブジェクト)
 	SceneManager::GetInstance()->Draw();
 
-	// 2. ImGui描画 (2D/GUI)
-	// ★ ImGuiManager::Render() は、3D描画が完了した後に実行します
 	ImGuiManager::GetInstance()->Render();
 
 	// 画面に表示
@@ -153,8 +143,6 @@ HRESULT Main::LoadData()
 //=================================================
 void Main::Release()
 {
-	// ★ ImGuiManagerの終了処理をデストラクタではなく、ここで明示的に呼ぶのが望ましい
-	// ImGuiManager::GetInstance()->Release();
 	DirectX11::GetInstance()->Release();
 	DirectX9::GetInstance()->Release();
 }
