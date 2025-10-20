@@ -8,6 +8,7 @@ class Game;
 class SceneManager;
 class StaticMeshManager;
 class SkinMeshManager;
+class ImGuiManager;
 
 /**************************************************
 *	メインクラス.
@@ -19,6 +20,7 @@ public:
 	~Main();	//デストラクタ.
 
 	void Update();		//更新処理.
+	void Draw();		//描画関数.
 	HRESULT Create();	//構築処理.
 	HRESULT LoadData();	//データロード処理.
 	void Release();		//解放処理.
@@ -38,4 +40,8 @@ private:
 
 private:
 	HWND			m_hWnd;	//ウィンドウハンドル.
+
+	float m_SomeFloatValue = 0.0f;
+	bool m_bFeatureEnabled = false;
+
 };

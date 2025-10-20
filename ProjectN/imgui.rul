@@ -1,0 +1,17 @@
+[Window][Debug##Default]
+Pos=60,60
+Size=400,400
+Collapsed=0
+
+[Window][Hello Window]
+Pos=92,69
+Size=95,58
+Collapsed=0
+
+[Window][My Debug Window]
+Pos=637,327
+Size=373,203
+Collapsed=0
+
+[Docking][Data]
+

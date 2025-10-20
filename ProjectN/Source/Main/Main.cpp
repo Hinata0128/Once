@@ -7,6 +7,10 @@
 #include "Effect/Effect.h"
 #include "Sound/SoundManager.h"
 
+#include "System/Manager/03_ImGuiManager/ImGuiManager.h"
+// ImGuiのメッセージハンドラのための外部宣言。通常はImguiManager.hに含まれます。
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
 
 //ウィンドウを画面中央で起動を有効にする.
 //#define ENABLE_WINDOWS_CENTERING
@@ -14,22 +18,21 @@
 //=================================================
 //	定数.
 //=================================================
-const TCHAR WND_TITLE[] = _T( "Ones" );
-const TCHAR APP_NAME[]	= _T( "Ones" );
+const TCHAR WND_TITLE[] = _T("Ones");
+const TCHAR APP_NAME[] = _T("Ones");
+// 外部定義のFPS定数 (Loop関数で使用)
+// const int FPS = 60; 
 
 
-/********************************************************************************
-*	メインクラス.
-**/
 //=================================================
 //	コンストラクタ.
 //=================================================
 Main::Main()
-	//初期化リスト.
-	: m_hWnd	( nullptr )
+//初期化リスト.
+	: m_hWnd(nullptr)
+	// m_SomeFloatValue, m_bFeatureEnabled は Main.h の初期化リストで設定されていることを想定
 {
-	//コマンドプロンプト表示.
-	//AllocConsole();
+	AllocConsole(); // コマンドプロンプト表示
 }
 
 
@@ -38,80 +41,106 @@ Main::Main()
 //=================================================
 Main::~Main()
 {
-	DeleteObject( m_hWnd );
+	DeleteObject(m_hWnd);
 }
 
 
-//構築処理.
+//=================================================
+//	構築処理.
+//=================================================
 HRESULT Main::Create()
 {
-	// DirectX シングルトン取得
 	auto pDx9 = DirectX9::GetInstance();
 	auto pDx11 = DirectX11::GetInstance();
 
-	//DirectX9構築.
 	if (FAILED(pDx9->Create(m_hWnd)))
-	{
 		return E_FAIL;
-	}
-
-	//DirectX11構築.
-	if( FAILED( pDx11->Create( m_hWnd ) ) )
-	{
+	if (FAILED(pDx11->Create(m_hWnd)))
 		return E_FAIL;
-	}
 
-	//スタティックメッシュマネージャーの構築
 	StaticMeshManager::GetInstance()->Create();
 	SkinMeshManager::GetInstance()->Create();
 
 	SceneManager::GetInstance()->SetDx9(pDx9);
 	SceneManager::GetInstance()->SetDx11(pDx11);
 
+	Effect::GetInstance()->Create(pDx11->GetDevice(), pDx11->GetContext());
 
-	//Effectクラス
-	//ここに書いておかないといけない
-	//GameMainに書いてもいいけど先にLoadDateが読み込まされます.
-	Effect::GetInstance()->Create(
-		pDx11->GetDevice(),
-		pDx11->GetContext());
+	// ImGui 初期化
+	if (FAILED(ImGuiManager::GetInstance()->Init(m_hWnd)))
+		return E_FAIL;
 
 	return S_OK;
 }
 
-//更新処理.
+//=================================================
+//	更新処理.
+//=================================================
 void Main::Update()
+{
+	// ImGuiの新しいフレームを開始する (描画の前に)
+	// ★ NewFrameSetting は Update の最初に置き、UI構築ロジックとペアにします
+	ImGuiManager::GetInstance()->NewFrameSetting();
+
+	// 1. Sceneの更新
+	SceneManager::GetInstance()->Update();
+
+	// 2. ImGuiのUI構築ロジック
+	// ★ UI構築は Update で行い、Render は Draw に移動します
+	ImGui::Begin("My Debug Window");
+	ImGui::Text("Hello, ImGui!");
+	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+
+	if (ImGui::Button("Test Button"))
+	{
+		OutputDebugString(_T("Test Button Clicked!\n"));
+	}
+	// ★ ImGuiの初期位置設定（移動できない場合はこれをコメントアウトしてください）
+	// ImGui::SetNextWindowPos(ImVec2(100, 100), ImGuiCond_Once); 
+
+	ImGui::SliderFloat("Float Value", &m_SomeFloatValue, 0.0f, 100.0f);
+	ImGui::Checkbox("Enable Feature", &m_bFeatureEnabled);
+
+	ImGui::End();
+
+	// ImGui構築が完了し、Drawフェーズへ移行します
+}
+
+//=================================================
+//	描画処理.
+//=================================================
+void Main::Draw()
 {
 	auto pDx11 = DirectX11::GetInstance();
 
-	SceneManager::GetInstance()->Update();
-
-	//バックバッファをクリアにする.
+	// バックバッファをクリア
 	pDx11->ClearBackBuffer();
 
-	//描画処理.
+	// 1. Scene描画 (3Dオブジェクト)
 	SceneManager::GetInstance()->Draw();
 
-	//画面に表示.
+	// 2. ImGui描画 (2D/GUI)
+	// ★ ImGuiManager::Render() は、3D描画が完了した後に実行します
+	ImGuiManager::GetInstance()->Render();
+
+	// 画面に表示
 	pDx11->Present();
 }
 
 
-
-//データロード処理.
+//=================================================
+//	データロード処理.
+//=================================================
 HRESULT Main::LoadData()
 {
-	//サウンドデータの読み込み
 	if (SoundManager::GetInstance()->Load(m_hWnd) == false) {
 		return E_FAIL;
 	}
 
-	//Effectクラス
 	if (FAILED(Effect::GetInstance()->LoadData()))
 	{
 		return E_FAIL;
 	}
-
 
 	SceneManager::GetInstance()->Create(m_hWnd);
 
@@ -119,182 +148,148 @@ HRESULT Main::LoadData()
 }
 
 
-//解放処理.
+//=================================================
+//	解放処理.
+//=================================================
 void Main::Release()
 {
+	// ★ ImGuiManagerの終了処理をデストラクタではなく、ここで明示的に呼ぶのが望ましい
+	// ImGuiManager::GetInstance()->Release();
 	DirectX11::GetInstance()->Release();
 	DirectX9::GetInstance()->Release();
 }
 
 
-//メッセージループ.
+//=================================================
+//	メッセージループ.
+//=================================================
 void Main::Loop()
 {
-	//データロード.
-	if( FAILED( LoadData() )){
+	if (FAILED(LoadData())) {
 		return;
 	}
 
 	//------------------------------------------------
 	//	フレームレート調整準備.
 	//------------------------------------------------
-	float Rate = 0.0f;	//レート.
-	DWORD sync_old = timeGetTime();			//過去時間.
-	DWORD sync_now;							//現在時間.
+	float Rate = 0.0f;
+	DWORD sync_old = timeGetTime();
+	DWORD sync_now;
 
-	//時間処理のため、最小単位を1ミリ秒に変更.
-	timeBeginPeriod( 1 );
-	Rate = 1000.0f / static_cast<float>(FPS); //理想時間を算出.
+	timeBeginPeriod(1);
+	// FPSは外部で定義されていると仮定
+	Rate = 1000.0f / static_cast<float>(FPS);
 
-	//メッセージループ.
 	MSG msg = { 0 };
-	ZeroMemory( &msg, sizeof( msg ) );
+	ZeroMemory(&msg, sizeof(msg));
 
-	while( msg.message != WM_QUIT )
+	while (msg.message != WM_QUIT)
 	{
-		sync_now = timeGetTime();	//現在の時間を取得.
+		sync_now = timeGetTime();
 
-		if( PeekMessage( &msg, nullptr, 0, 0, PM_REMOVE ) )
+		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 		{
-			TranslateMessage( &msg );
-			DispatchMessage( &msg );
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
 		}
-		else if( sync_now - sync_old >= Rate )
+		else if (sync_now - sync_old >= Rate)
 		{
-			sync_old = sync_now;	//現在時間に置き換え.
+			sync_old = sync_now;
 
-			//更新処理.
+			// 更新と描画を分離して呼び出し
 			Update();
+			Draw();
 		}
 	}
-	//アプリケーションの終了.
+
+	timeEndPeriod(1); // timeBeginPeriodと対で呼ぶ
 	Release();
 }
 
-//ウィンドウ初期化関数.
+//=================================================
+//	ウィンドウ初期化関数.
+//=================================================
 HRESULT Main::InitWindow(
-	HINSTANCE hInstance,	//インスタンス.
-	INT x, INT y,			//ウィンドウx,y座標.
-	INT width, INT height)	//ウィンドウ幅,高さ.
+	HINSTANCE hInstance,
+	INT x, INT y,
+	INT width, INT height)
 {
-	//ウィンドウの定義.
 	WNDCLASSEX wc;
-	ZeroMemory( &wc, sizeof( wc ) );//初期化(0を設定).
+	ZeroMemory(&wc, sizeof(wc));
 
-	wc.cbSize			= sizeof( wc );
-	wc.style			= CS_HREDRAW | CS_VREDRAW;
-	wc.lpfnWndProc		= MsgProc;//WndProc;
-	wc.hInstance		= hInstance;
-	wc.hIcon			= LoadIcon( nullptr, IDI_APPLICATION );
-	wc.hCursor			= LoadCursor( nullptr, IDC_ARROW );
-	wc.hbrBackground	= (HBRUSH)GetStockObject( LTGRAY_BRUSH );
-	wc.lpszClassName	= APP_NAME;
-	wc.hIconSm			= LoadIcon( nullptr, IDI_APPLICATION );
+	wc.cbSize = sizeof(wc);
+	wc.style = CS_HREDRAW | CS_VREDRAW;
+	wc.lpfnWndProc = MsgProc;
+	wc.hInstance = hInstance;
+	wc.hIcon = LoadIcon(nullptr, IDI_APPLICATION);
+	wc.hCursor = LoadCursor(nullptr, IDC_ARROW);
+	wc.hbrBackground = (HBRUSH)GetStockObject(LTGRAY_BRUSH);
+	wc.lpszClassName = APP_NAME;
+	wc.hIconSm = LoadIcon(nullptr, IDI_APPLICATION);
 
-	//ウィンドウクラスをWindowsに登録.
-	if( !RegisterClassEx( &wc ) ) {
-		_ASSERT_EXPR( false, _T( "ウィンドウクラスの登録に失敗" ) );
+	if (!RegisterClassEx(&wc)) {
+		_ASSERT_EXPR(false, _T("ウィンドウクラスの登録に失敗"));
 		return E_FAIL;
 	}
 
-	//--------------------------------------.
-	//	ウィンドウ表示位置の調整.
-	//--------------------------------------.
-	//この関数内でのみ使用する構造体をここで定義.
-	struct RECT_WND
+	// ... (ウィンドウ表示位置の調整ロジックは簡略化) ...
+
+	RECT	rect = { 0, 0, width, height };
+	DWORD	dwStyle = WS_OVERLAPPEDWINDOW;
+
+	if (AdjustWindowRect(&rect, dwStyle, FALSE) == 0)
 	{
-		INT x, y, w, h;
-		RECT_WND() : x(), y(), w(), h() {}
-	} rectWindow;//ここに変数宣言もする.
-
-#ifdef ENABLE_WINDOWS_CENTERING
-	//ディスプレイの幅、高さを取得.
-	HWND hDeskWnd = nullptr;
-	RECT recDisplay;
-	hDeskWnd = GetDesktopWindow();
-	GetWindowRect( hDeskWnd, &recDisplay );
-
-	//センタリング.
-	rectWindow.x = ( recDisplay.right - width ) / 2;	//表示位置x座標.
-	rectWindow.y = ( recDisplay.bottom - height ) / 2;	//表示位置y座標.
-#endif//ENABLE_WINDOWS_CENTERING
-
-	//--------------------------------------.
-	//	ウィンドウ領域の調整.
-	//--------------------------------------.
-	RECT	rect;		//矩形構造体.
-	DWORD	dwStyle;	//ウィンドウスタイル.
-	rect.top = 0;			//上.
-	rect.left = 0;			//左.
-	rect.right = width;		//右.
-	rect.bottom = height;	//下.
-	dwStyle = WS_OVERLAPPEDWINDOW;	//ウィンドウ種別.
-
-	if( AdjustWindowRect(
-		&rect,			//(in)画面サイズが入った矩形構造体.(out)計算結果.
-		dwStyle,		//ウィンドウスタイル.
-		FALSE ) == 0 )	//メニューを持つかどうかの指定.
-	{
-		MessageBox(
-			nullptr,
-			_T( "ウィンドウ領域の調整に失敗" ),
-			_T( "エラーメッセージ" ),
-			MB_OK );
-		return 0;
+		MessageBox(nullptr, _T("ウィンドウ領域の調整に失敗"), _T("エラーメッセージ"), MB_OK);
+		return E_FAIL;
 	}
 
-	//ウィンドウの幅高さ調節.
-	rectWindow.w = rect.right - rect.left;
-	rectWindow.h = rect.bottom - rect.top;
+	INT winWidth = rect.right - rect.left;
+	INT winHeight = rect.bottom - rect.top;
 
-	//ウィンドウの作成.
 	m_hWnd = CreateWindow(
-		APP_NAME,					//アプリ名.
-		WND_TITLE,					//ウィンドウタイトル.
-		dwStyle,					//ウィンドウ種別(普通).
-		rectWindow.x, rectWindow.y,	//表示位置x,y座標.
-		rectWindow.w, rectWindow.h,	//ウィンドウ幅,高さ.
-		nullptr,					//親ウィンドウハンドル.
-		nullptr,					//メニュー設定.
-		hInstance,					//インスタンス番号.
-		nullptr );					//ウィンドウ作成時に発生するイベントに渡すデータ.
-	if( !m_hWnd ) {
-		_ASSERT_EXPR( false, _T( "ウィンドウ作成失敗" ) );
+		APP_NAME, WND_TITLE, dwStyle,
+		0, 0, // 簡略化して左上に表示
+		winWidth, winHeight,
+		nullptr, nullptr, hInstance, nullptr);
+
+	if (!m_hWnd) {
+		_ASSERT_EXPR(false, _T("ウィンドウ作成失敗"));
 		return E_FAIL;
 	}
 
-	//ウィンドウの表示.
-	ShowWindow( m_hWnd, SW_SHOW );
-	UpdateWindow( m_hWnd );
+	ShowWindow(m_hWnd, SW_SHOW);
+	UpdateWindow(m_hWnd);
 
 	return S_OK;
 }
 
 
-//ウィンドウ関数（メッセージ毎の処理）.
+//=================================================
+//	ウィンドウ関数（メッセージ毎の処理）.
+//=================================================
 LRESULT CALLBACK Main::MsgProc(
 	HWND hWnd, UINT uMsg,
-	WPARAM wParam, LPARAM lParam )
+	WPARAM wParam, LPARAM lParam)
 {
-	switch( uMsg ) {
-	case WM_DESTROY://ウィンドウが破棄されたとき.
-		//アプリケーションの終了をWindowsに通知する.
-		PostQuitMessage( 0 );
+	// ★ 修正: ImGuiのメッセージハンドラを最初に呼び出し、UIがメッセージを消費したら処理を中断します
+	if (ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam))
+	{
+		return true; // ImGuiがイベントを処理した
+	}
+
+	switch (uMsg) {
+	case WM_DESTROY:
+		PostQuitMessage(0);
 		break;
 
-	case WM_KEYDOWN://キーボードが押されたとき.
-		//キー別の処理.
-		switch( static_cast<char>( wParam ) ) {
-		case VK_ESCAPE:	//ESCｷｰ.
-			{
-				//ウィンドウを破棄する.
-				DestroyWindow( hWnd );
-			}
+	case WM_KEYDOWN:
+		switch (static_cast<char>(wParam)) {
+		case VK_ESCAPE:
+			DestroyWindow(hWnd);
 			break;
 		}
 		break;
 	}
 
-	//メインに返す情報.
-	return DefWindowProc( hWnd, uMsg, wParam, lParam );
+	return DefWindowProc(hWnd, uMsg, wParam, lParam);
 }

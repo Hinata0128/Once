@@ -348,6 +348,13 @@ void DirectX11::ClearBackBuffer()
 		m_pBackBuffer_DSTexDSV,
 		D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL,
 		1.0f, 0 );
+
+	//レンダラーターゲットをリセット.
+	DirectX11::GetInstance()->m_pContext11->OMSetRenderTargets(
+		1,
+		&DirectX11::GetInstance()->m_pBackBuffer_TexRTV,
+		DirectX11::GetInstance()->m_pBackBuffer_DSTexDSV);
+
 }
 
 

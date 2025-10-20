@@ -96,7 +96,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>Source;Source;Source\Effekseer\include;Source</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Source;Source;Source\Effekseer\include;Source,Data</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -134,7 +134,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>Source;Source;Source\Effekseer\include;Source</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Source;Source;Source\Effekseer\include;Source,Data</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -166,6 +166,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Data\ImGui\Library\imgui.cpp" />
+    <ClCompile Include="Data\ImGui\Library\imgui_demo.cpp" />
+    <ClCompile Include="Data\ImGui\Library\imgui_draw.cpp" />
+    <ClCompile Include="Data\ImGui\Library\imgui_impl_dx11.cpp" />
+    <ClCompile Include="Data\ImGui\Library\imgui_impl_win32.cpp" />
+    <ClCompile Include="Data\ImGui\Library\imgui_tables.cpp" />
+    <ClCompile Include="Data\ImGui\Library\imgui_widgets.cpp" />
     <ClCompile Include="Source\Collision\BoundingSphere.cpp" />
     <ClCompile Include="Source\Effect\Effect.cpp" />
     <ClCompile Include="Source\GameObject\SkinMeshObject\Character\Character.cpp" />
@@ -203,9 +210,18 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Source\System\Manager\02_PShotManager\PShotManager.cpp" />
+    <ClCompile Include="Source\System\Manager\03_ImGuiManager\ImGuiManager.cpp" />
     <ClCompile Include="Source\WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Data\ImGui\Library\imconfig.h" />
+    <ClInclude Include="Data\ImGui\Library\imgui.h" />
+    <ClInclude Include="Data\ImGui\Library\imgui_impl_dx11.h" />
+    <ClInclude Include="Data\ImGui\Library\imgui_impl_win32.h" />
+    <ClInclude Include="Data\ImGui\Library\imgui_internal.h" />
+    <ClInclude Include="Data\ImGui\Library\imstb_rectpack.h" />
+    <ClInclude Include="Data\ImGui\Library\imstb_textedit.h" />
+    <ClInclude Include="Data\ImGui\Library\imstb_truetype.h" />
     <ClInclude Include="Source\Collision\BoundingSphere.h" />
     <ClInclude Include="Source\Effect\Effect.h" />
     <ClInclude Include="Source\Effekseer\include\Effekseer.h" />
@@ -243,6 +259,7 @@
     <ClInclude Include="Source\MyMacro.h" />
     <ClInclude Include="Source\stdafx.h" />
     <ClInclude Include="Source\System\Manager\02_PShotManager\PShotManager.h" />
+    <ClInclude Include="Source\System\Manager\03_ImGuiManager\ImGuiManager.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Data\Shader\Ray.hlsl">
@@ -299,6 +316,14 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Data\ImGui\Font\arial.ttf" />
+    <Font Include="Data\ImGui\Font\arialbd.ttf" />
+    <Font Include="Data\ImGui\Font\arialbi.ttf" />
+    <Font Include="Data\ImGui\Font\ariali.ttf" />
+    <Font Include="Data\ImGui\Font\ariblk.ttf" />
+    <Font Include="Data\ImGui\Font\NotoSansJP-SemiBold.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
