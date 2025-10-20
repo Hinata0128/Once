@@ -14,6 +14,7 @@ public:
 		Bullet,		//’e.
 		Ground,		//’n–Ê.
 		Collision,	//“–‚½‚è”»’è.
+		//‚±‚±‚É•K—v•¨‚ğ‘‚â‚µ‚Ä‚¢‚­.
 
 		max,
 	};
