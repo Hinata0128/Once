@@ -22,6 +22,7 @@ void SkinMeshManager::Create()
 	MeshList SList[] =
 	{
 		//ここに生成したいスキンメッシュの情報を書く.
+		//{static_cast<int>(SkinList::Player), _T("Data\\Mesh\\Skin\\zako\\zako.x")},
 		{static_cast<int>(SkinList::Player), _T("Data\\Mesh\\Skin\\EXTINGER\\extinger.X")},
 	};
 	int List_Max = sizeof(SList) / sizeof(SList[0]);

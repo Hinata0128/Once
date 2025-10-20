@@ -19,6 +19,8 @@ public:
 
 	void SetAnimSpeed(double speed) { m_AnimSpeed = speed; }
 
+	void Stop();
+
 protected:
 
 	std::vector<std::unique_ptr<PShot>> m_pShotList;
