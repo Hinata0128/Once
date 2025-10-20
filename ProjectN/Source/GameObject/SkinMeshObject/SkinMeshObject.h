@@ -18,7 +18,7 @@ public:
 	virtual void Draw( D3DXMATRIX& View, D3DXMATRIX& Proj, LIGHT& Light, CAMERA& Camera ) override;
 
 	//メッシュを接続する.
-	void AttachMesh(SkinMesh& pMesh);
+	void AttachMesh(std::shared_ptr<SkinMesh> pMesh);
 	//メッシュを切り離す.
 	void DetachMesh();
 
@@ -26,11 +26,15 @@ public:
 	//セット・ゲット関数.
 	//アニメーションの再生用セット関数.
 	void SetIsLoop(const bool& IsLoop);
-
-
-
 protected:
-	SkinMesh*					m_pMesh;
+	//SkinMesh*					m_pMesh;
+	std::shared_ptr<SkinMesh> m_pMesh;
 	LPD3DXANIMATIONCONTROLLER	m_pAnimCtrl;	//アニメーションコントローラ
-	bool						m_Loop;	//アニメーションのループ再生.
+
+	int				m_AnimNo;			//アニメーション番号
+	double			m_AnimTime;			//アニメーション経過時間
+	double			m_AnimSpeed;		//アニメーション速度
+	D3DXVECTOR3		m_BonePos;			//ボーン座標
+
+	bool			m_Loop;	//アニメーションのループ再生.
 };
