@@ -211,6 +211,7 @@
     </ClCompile>
     <ClCompile Include="Source\System\Manager\02_PShotManager\PShotManager.cpp" />
     <ClCompile Include="Source\System\Manager\03_ImGuiManager\ImGuiManager.cpp" />
+    <ClCompile Include="Source\System\Renderer\Renderer.cpp" />
     <ClCompile Include="Source\WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -244,6 +245,7 @@
     <ClInclude Include="Source\Scene\GameOver\GameOver.h" />
     <ClInclude Include="Source\Scene\CSceneBase.h" />
     <ClInclude Include="Source\Scene\Title\Title.h" />
+    <ClInclude Include="Source\System\IDrawabel\IDrawabel.h" />
     <ClInclude Include="Source\System\Manager\00_SkinMeshManager\SkinMeshManager.h" />
     <ClInclude Include="Source\SkinMesh\SkinMesh.h" />
     <ClInclude Include="Source\SkinMesh\SkinMeshParser.h" />
@@ -260,6 +262,7 @@
     <ClInclude Include="Source\stdafx.h" />
     <ClInclude Include="Source\System\Manager\02_PShotManager\PShotManager.h" />
     <ClInclude Include="Source\System\Manager\03_ImGuiManager\ImGuiManager.h" />
+    <ClInclude Include="Source\System\Renderer\Renderer.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Data\Shader\Ray.hlsl">
