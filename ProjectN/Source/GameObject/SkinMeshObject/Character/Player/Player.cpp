@@ -12,7 +12,7 @@ Player::Player()
 
 	//AttachMesh に shared_ptr を渡す
 	AttachMesh(shared_mesh);
-	SetScale(0.06f);
+	SetScale(0.04f);
 	SetPosition(0.f, 0.f, 2.f);
 
 	//アニメーションの速度を
@@ -38,7 +38,7 @@ Player::~Player()
 void Player::Update()
 {
 	m_pMesh->SetAnimSpeed(m_AnimSpeed);
-
+	
 	constexpr float add_value = 0.1f;
 
 	if (GetAsyncKeyState('W') & 0X8000)
