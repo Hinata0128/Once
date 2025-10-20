@@ -82,35 +82,35 @@ void Player::Update()
 		{
 			if (!shot->IsDisplay())
 			{
-				// 1. 各変換行列を個別に作成する
+				//各変換行列を個別に作成する.
 				D3DXMATRIX matS, matR, matT;
 				D3DXMATRIX playerWorldMatrix;
 
-				// スケール行列の作成
+				//スケール行列の作成.
 				D3DXMatrixScaling(&matS, m_vScale.x, m_vScale.y, m_vScale.z);
 
-				// 回転行列の作成 (m_vRotationをオイラー角として使用)
+				//回転行列の作成 (m_vRotationをオイラー角として使用).
 				D3DXMatrixRotationYawPitchRoll(
 					&matR,
 					m_vRotation.y, m_vRotation.x, m_vRotation.z
 				);
 
-				// 移動行列の作成
+				//移動行列の作成.
 				D3DXMatrixTranslation(&matT, m_vPosition.x, m_vPosition.y, m_vPosition.z);
 
-				// 2. ワールド行列を構築する (S * R * T の順に乗算)
-				// SをRで変換し、その結果をTで変換する
+				//ワールド行列を構築する (S * R * T の順に乗算).
+				//SをRで変換し、その結果をTで変換する.
 				D3DXMatrixMultiply(&playerWorldMatrix, &matS, &matR);
 				D3DXMatrixMultiply(&playerWorldMatrix, &playerWorldMatrix, &matT);
 
-				// 3. ローカルのボーン座標をワールド座標に変換する
+				//ローカルのボーン座標をワールド座標に変換する.
 				D3DXVECTOR3 worldBonePos;
 				D3DXVec3TransformCoord(&worldBonePos, &m_BonePos, &playerWorldMatrix);
 
-				// 4. ワールド座標にオフセットを加えて、最終的な発射位置を決定
+				//ワールド座標にオフセットを加えて、最終的な発射位置を決定.
 				D3DXVECTOR3 shotPos = worldBonePos + m_ShotOffset;
 
-				// 5. 弾を発射
+				//弾を発射.
 				shot->Reload(shotPos, 0.2f);
 				shot->SetDisplay(true);
 				break;
