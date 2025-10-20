@@ -15,7 +15,7 @@ public:
 	enum class SkinList
 	{
 		//ここに名前を書いていく.
-		Player,
+		Player,		//プレイヤー.
 
 		max,
 	};
@@ -36,7 +36,4 @@ private:
 	SkinMeshManager& operator = (const SkinMeshManager& rhs) = delete;
 
 	std::unique_ptr<SkinMesh> m_pSkin[static_cast<int>(SkinList::max)];
-
-protected:
-
 };

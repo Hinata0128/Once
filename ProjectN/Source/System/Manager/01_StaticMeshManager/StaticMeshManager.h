@@ -11,9 +11,9 @@ public:
 	//モデルの種類の列挙型.
 	enum CMeshList
 	{
-		Bullet,
-		Ground,
-		Collision,
+		Bullet,		//弾.
+		Ground,		//地面.
+		Collision,	//当たり判定.
 
 		max,
 	};
@@ -26,7 +26,7 @@ public:
 		//スタティッククラスのゲットインスタンスを書く
 		StaticMesh* GetMeshInstance(CMeshList MeshNo)
 		{
-			return m_pMesh[MeshNo];
+			return m_pMesh[static_cast<int>(MeshNo)].get();
 		};
 
 		//インスタンス取得(唯一のアクセス経路).
@@ -50,8 +50,5 @@ private:
 	//operator(オペレータ):演算子のオーバーロードで、演算の中身を拡張できる.
 	StaticMeshManager& operator = (const StaticMeshManager& rhs) = delete;
 
-
-
-	StaticMesh* m_pMesh[CMeshList::max];
-
+	std::unique_ptr<StaticMesh> m_pMesh[static_cast<int>(CMeshList::max)];
 };

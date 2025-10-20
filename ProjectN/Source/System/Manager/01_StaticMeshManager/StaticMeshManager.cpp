@@ -16,7 +16,7 @@ void StaticMeshManager::Create()
 {
 	for (int i = 0; i < CMeshList::max; ++i)
 	{
-		m_pMesh[i] = new StaticMesh();
+		m_pMesh[i] = std::make_unique<StaticMesh>();
 	}
 	struct MeshList
 	{
