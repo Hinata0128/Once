@@ -245,7 +245,6 @@
     <ClInclude Include="Source\Scene\GameOver\GameOver.h" />
     <ClInclude Include="Source\Scene\CSceneBase.h" />
     <ClInclude Include="Source\Scene\Title\Title.h" />
-    <ClInclude Include="Source\System\IDrawabel\IDrawabel.h" />
     <ClInclude Include="Source\System\Manager\00_SkinMeshManager\SkinMeshManager.h" />
     <ClInclude Include="Source\SkinMesh\SkinMesh.h" />
     <ClInclude Include="Source\SkinMesh\SkinMeshParser.h" />
