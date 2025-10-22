@@ -6,6 +6,8 @@
 #include "GameObject/StaticMeshObject/Ground/Ground.h"
 #include "GameObject/SkinMeshObject/Character/Player/Player.h"
 
+#include "Sprite3D/Sprite3D.h"
+
 
 /*********************************************
 *	ゲームメイン画像クラス.

@@ -38,11 +38,11 @@ void PShot::Update()
 	}
 }
 
-void PShot::Draw(D3DXMATRIX& View, D3DXMATRIX& Proj, LIGHT& Light, CAMERA& Camera)
+void PShot::Draw()
 {
 	if (m_Disp)
 	{
-		StaticMeshObject::Draw(View, Proj, Light, Camera);
+		StaticMeshObject::Draw();
 	}
 }
 

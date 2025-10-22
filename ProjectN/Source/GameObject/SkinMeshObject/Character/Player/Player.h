@@ -15,7 +15,7 @@ public:
 	 ~Player() override;
 
 	void Update() override;
-	void Draw(D3DXMATRIX& View, D3DXMATRIX& Proj, LIGHT& Light, CAMERA& Camera) override;
+	void Draw() override;
 
 	void SetAnimSpeed(double speed) { m_AnimSpeed = speed; }
 

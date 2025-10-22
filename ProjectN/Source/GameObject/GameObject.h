@@ -1,5 +1,7 @@
 #pragma once
 
+#include "System/Renderer/Renderer.h"
+
 /**************************************************
 *	ゲームオブジェクトクラス.
 **/
@@ -13,7 +15,7 @@ public:
 	//virtual 型 関数名 = 0; 純粋仮想関数.
 	//子クラスに処理をお任せするので、ここでは名前だけ宣言して定義は書かない.
 	virtual void Update() = 0;
-	virtual void Draw( D3DXMATRIX& View, D3DXMATRIX& Proj, LIGHT& Light, CAMERA& Camera ) = 0;
+	virtual void Draw() = 0;
 
 	//座標設定関数.
 	void SetPosition( float x, float y, float z ){

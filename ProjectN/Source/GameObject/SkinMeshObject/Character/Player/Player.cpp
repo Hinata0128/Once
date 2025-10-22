@@ -151,15 +151,14 @@ void Player::Update()
 }
 
 
-void Player::Draw(
-	D3DXMATRIX& View, D3DXMATRIX& Proj, LIGHT& Light, CAMERA& Camera)
+void Player::Draw()
 {
 	m_pMesh->SetAnimSpeed(m_AnimSpeed);
-	Character::Draw(View, Proj, Light, Camera);
+	Character::Draw();
 
 	for (auto& shot : m_pShotList)
 	{
-		shot->Draw(View, Proj, Light, Camera);
+		shot->Draw();
 	}
 }
 

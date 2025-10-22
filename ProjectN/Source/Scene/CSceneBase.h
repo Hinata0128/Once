@@ -26,6 +26,8 @@ public:
 		m_pMesh = &pMesh;
 	}
 
+	void PreDraw();
+
 protected:
 	StaticMesh* m_pMesh;
 	DirectX9* m_pDx9;

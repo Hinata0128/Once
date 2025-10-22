@@ -1,32 +1,26 @@
 #pragma once
 
-#include "GameObject\\GameObject.h"
-#include "Sprite2D\Sprite2D.h"
+#include "GameObject/GameObject.h"
+#include "Sprite2D/Sprite2D.h"
 
 /************************************************************
 *	UIオブジェクトクラス.
 **/
-class UIObject
-	: public GameObject
+class UIObject : public GameObject
 {
 public:
 	UIObject();
 	virtual ~UIObject() override;
 
-	//CGameObjectで純粋仮想関数の宣言がされてるのでこちらで定義を書く.
+	// Update と Draw（引数なし）
 	virtual void Update() override;
-	//CUIObjectで宣言した関数で、以降はこれをoverrideさせる.
-	virtual void Draw();
+	virtual void Draw() override final; // ← ここでfinal指定OK！
 
-	//スプライトを接続する.
-	void AttachSprite(Sprite2D& pSprite ){
-		m_pSprite = &pSprite;
-	}
-	//スプライトを切り離す.
-	void DetachSprite(){
-		m_pSprite = nullptr;
-	}
-	//パターン番号を設定
+	// スプライトを接続する
+	void AttachSprite(Sprite2D& pSprite) { m_pSprite = &pSprite; }
+	void DetachSprite() { m_pSprite = nullptr; }
+
+	// パターン番号を設定
 	void SetPatternNo(SHORT x, SHORT y)
 	{
 		m_PatternNo.x = x;
@@ -34,11 +28,6 @@ public:
 	}
 
 protected:
-	//CGameObjectから継承した関数.
-	//final : これ以降はoverrideさせない.
-	 void Draw( D3DXMATRIX& View, D3DXMATRIX& Proj, LIGHT& Light, CAMERA& Camera ) override final;
-
-protected:
-	Sprite2D*	m_pSprite;
-	POINTS		m_PatternNo;	//パターン番号(マス目)
+	Sprite2D* m_pSprite;
+	POINTS		m_PatternNo;	// パターン番号(マス目)
 };

@@ -40,21 +40,27 @@ void SkinMeshObject::Update()
 	m_pAnimCtrl->AdvanceTime(m_AnimSpeed, nullptr);
 }
 
-void SkinMeshObject::Draw(
-	D3DXMATRIX& View, D3DXMATRIX& Proj, LIGHT& Light, CAMERA& Camera)
+void SkinMeshObject::Draw()
 {
-	if( m_pMesh == nullptr ){
-		return;
-	}
+	if (!m_pMesh) return;
 
-	//描画直前で座標や回転情報などを更新.
-	m_pMesh->SetPosition( m_vPosition );
-	m_pMesh->SetRotation( m_vRotation );
-	m_pMesh->SetScale( m_vScale );
+	auto& renderer = Renderer::GetInstance();
 
-	//レンダリング.
-	m_pMesh->Render( View, Proj, Light, Camera.vPosition,
-		m_pAnimCtrl );	//クローンを設定
+	// 座標・回転・スケール反映
+	m_pMesh->SetPosition(m_vPosition);
+	m_pMesh->SetRotation(m_vRotation);
+	m_pMesh->SetScale(m_vScale);
+
+	D3DXVECTOR3 camPos = renderer.GetCamera().vPosition; // 型を確認
+
+	// アニメーションコントローラがnullptrならnullptrを渡す
+	m_pMesh->Render(
+		renderer.GetView(),
+		renderer.GetProj(),
+		renderer.GetLight(),
+		camPos,
+		m_pAnimCtrl
+	);
 }
 
 //メッシュを接続する.

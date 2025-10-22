@@ -1,4 +1,4 @@
-#include "GameMain.h"
+ï»¿#include "GameMain.h"
 #include "Sound/SoundManager.h"
 #include "Effect//Effect.h"
 
@@ -14,19 +14,19 @@ GameMain::GameMain()
 	m_pDx11 = DirectX11::GetInstance();
 	m_pDx9	= DirectX9::GetInstance();
 
-	//ƒJƒƒ‰‚ÌˆÊ’u‚ğ•ÏX‚Å‚«‚é‚Æ‚±‚ë.
+	//ã‚«ãƒ¡ãƒ©ã®ä½ç½®ã‚’å¤‰æ›´ã§ãã‚‹ã¨ã“ã‚.
 	m_Camera.vPosition = D3DXVECTOR3(0.0f, 5.0f, -5.0f); 
-	//ƒJƒƒ‰‚ğŒ©‚Ä‚¢‚é‚Æ‚±‚ë‚ğ•ÏX‚Å‚«‚é‚Æ‚±‚ë.
+	//ã‚«ãƒ¡ãƒ©ã‚’è¦‹ã¦ã„ã‚‹ã¨ã“ã‚ã‚’å¤‰æ›´ã§ãã‚‹ã¨ã“ã‚.
 	m_Camera.vLook = D3DXVECTOR3(0.0f, 2.0f, 5.0f);
 
-	//ƒ‰ƒCƒgî•ñ
-	m_Light.vDirection = D3DXVECTOR3(1.5f, 1.f, -1.f);		//ƒ‰ƒCƒg•ûŒü.
+	//ãƒ©ã‚¤ãƒˆæƒ…å ±
+	m_Light.vDirection = D3DXVECTOR3(1.5f, 1.f, -1.f);		//ãƒ©ã‚¤ãƒˆæ–¹å‘.
 	Initialize();
 }
 
 GameMain::~GameMain()
 {
-	// ŠO•”‚Åì¬‚µ‚Ä‚¢‚é‚Ì‚ÅA‚±‚±‚Å‚Í”jŠü‚µ‚È‚¢
+	// å¤–éƒ¨ã§ä½œæˆã—ã¦ã„ã‚‹ã®ã§ã€ã“ã“ã§ã¯ç ´æ£„ã—ãªã„
 	m_hWnd = nullptr;
 	m_pDx11 = nullptr;
 	m_pDx9 = nullptr;
@@ -35,7 +35,7 @@ GameMain::~GameMain()
 void GameMain::Initialize()
 {
 
-	// ƒJƒƒ‰‚ÌˆÊ’u‚ğ‰Šú‰»
+	// ã‚«ãƒ¡ãƒ©ã®ä½ç½®ã‚’åˆæœŸåŒ–
 	m_Camera.vPosition = D3DXVECTOR3(0.0f, 5.0f, -5.0f);
 	m_Camera.vLook = D3DXVECTOR3(0.0f, 2.0f, 5.0f);
 }
@@ -48,29 +48,29 @@ void GameMain::Create()
 void GameMain::Update()
 {
 
-	//Effect§Œä
+	//Effectåˆ¶å¾¡
 	{
-		//ƒGƒtƒFƒNƒg‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚²‚Æ‚É•K—v‚Èƒnƒ“ƒhƒ‹
-		//¦‚R‚Â•\¦‚µ‚Ä§Œä‚·‚é‚È‚ç‚R‚Â•K—v‚É‚È‚é
+		//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã”ã¨ã«å¿…è¦ãªãƒãƒ³ãƒ‰ãƒ«
+		//â€»ï¼“ã¤è¡¨ç¤ºã—ã¦åˆ¶å¾¡ã™ã‚‹ãªã‚‰ï¼“ã¤å¿…è¦ã«ãªã‚‹
 		static ::EsHandle hEffect = -1;
 
 		if (GetAsyncKeyState('Y') & 0x0001) {
 			hEffect = Effect::Play(Effect::Test0, D3DXVECTOR3(0.f, 1.f, 0.f));
 
-			//Šg‘åk¬
+			//æ‹¡å¤§ç¸®å°
 			Effect::SetScale(hEffect, D3DXVECTOR3(0.8f, 0.8f, 0.8f));
 
-			//‰ñ“](Y²‰ñ“])
+			//å›è»¢(Yè»¸å›è»¢)
 			Effect::SetRotation(hEffect, D3DXVECTOR3(0.f, D3DXToRadian(90.0f), 0.f));
 
-			//ˆÊ’u‚ğÄİ’è
+			//ä½ç½®ã‚’å†è¨­å®š
 			Effect::SetLocation(hEffect, D3DXVECTOR3(0.f, 1.f, 1.f));
 		}
 		if (GetAsyncKeyState('T') & 0x0001) {
 			Effect::Stop(hEffect);
 		}
 	}
-	//’n–Ê.
+	//åœ°é¢.
 	m_pGround->Update();
 
 	m_pPlayer->Update();
@@ -82,11 +82,14 @@ void GameMain::Draw()
 	Camera();
 	Projection();
 
-		//’n–Ê•\¦.
-	m_pGround->Draw(m_mView, m_mProj, m_Light, m_Camera);
-	m_pPlayer->Draw(m_mView, m_mProj, m_Light, m_Camera);
+	PreDraw();
+
+
+		//åœ°é¢è¡¨ç¤º.
+	m_pGround->Draw();
+	m_pPlayer->Draw();
 	
-	//EffectƒNƒ‰ƒX
+	//Effectã‚¯ãƒ©ã‚¹
 	Effect::GetInstance()->Draw(m_mView, m_mProj, m_Light, m_Camera);
 }
 
@@ -99,30 +102,30 @@ void GameMain::Camera()
 {
 	D3DXVECTOR3 cam_pos = m_Camera.vPosition;
 	D3DXVECTOR3 cam_look = m_Camera.vLook;
-	D3DXVECTOR3	vUpVec(0.0f, 1.0f, 0.0f);	//ã•ûiƒxƒNƒgƒ‹j.
+	D3DXVECTOR3	vUpVec(0.0f, 1.0f, 0.0f);	//ä¸Šæ–¹ï¼ˆãƒ™ã‚¯ãƒˆãƒ«ï¼‰.
 
-	//ƒrƒ…[iƒJƒƒ‰j•ÏŠ·.
+	//ãƒ“ãƒ¥ãƒ¼ï¼ˆã‚«ãƒ¡ãƒ©ï¼‰å¤‰æ›.
 	D3DXMatrixLookAtLH(
-		&m_mView,	//(out)ƒrƒ…[ŒvZŒ‹‰Ê.
+		&m_mView,	//(out)ãƒ“ãƒ¥ãƒ¼è¨ˆç®—çµæœ.
 		&cam_pos, &cam_look, &vUpVec);
 }
 
-//ƒvƒƒWƒFƒNƒVƒ‡ƒ“ŠÖ”.
+//ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³é–¢æ•°.
 void GameMain::Projection()
 {
-	//y•ûŒü‚Ì‹–ìŠpB”’l‚ğ‘å‚«‚­‚µ‚½‚ç‹–ì‚ª‹·‚­‚È‚é.
-	float fov_y = static_cast<FLOAT>(D3DXToRadian(45.0));	//ƒ‰ƒWƒAƒ“’l.
-	//ƒAƒXƒyƒNƒgi•€‚‚³j.
+	//yæ–¹å‘ã®è¦–é‡è§’ã€‚æ•°å€¤ã‚’å¤§ããã—ãŸã‚‰è¦–é‡ãŒç‹­ããªã‚‹.
+	float fov_y = static_cast<FLOAT>(D3DXToRadian(45.0));	//ãƒ©ã‚¸ã‚¢ãƒ³å€¤.
+	//ã‚¢ã‚¹ãƒšã‚¯ãƒˆï¼ˆå¹…Ã·é«˜ã•ï¼‰.
 	float aspect = static_cast<FLOAT>(WND_W) / static_cast<FLOAT>(WND_H);
 	float near_z = 0.1f;
 	float far_z = 100.0f;
 
-	//ƒvƒƒWƒFƒNƒVƒ‡ƒ“iË‰ej•ÏŠ·.
+	//ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³ï¼ˆå°„å½±ï¼‰å¤‰æ›.
 	D3DXMatrixPerspectiveFovLH(
-		&m_mProj,	//(out)ƒvƒƒWƒFƒNƒVƒ‡ƒ“ŒvZŒ‹‰Ê.
-		fov_y,		//‹–ìŠpiFOVFField of Viewj.
-		aspect,		//ƒAƒXƒyƒNƒg.
-		near_z,		//‹ß‚¢ƒrƒ…[•½–Ê‚Ìz’l.
-		far_z);	//‰“‚¢ƒrƒ…[•½–Ê‚Ìz’l.
+		&m_mProj,	//(out)ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³è¨ˆç®—çµæœ.
+		fov_y,		//è¦–é‡è§’ï¼ˆFOVï¼šField of Viewï¼‰.
+		aspect,		//ã‚¢ã‚¹ãƒšã‚¯ãƒˆ.
+		near_z,		//è¿‘ã„ãƒ“ãƒ¥ãƒ¼å¹³é¢ã®zå€¤.
+		far_z);	//é ã„ãƒ“ãƒ¥ãƒ¼å¹³é¢ã®zå€¤.
 }
 

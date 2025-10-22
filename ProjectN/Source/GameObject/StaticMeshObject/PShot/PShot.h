@@ -16,7 +16,7 @@ public:
 	~PShot() override;
 
 	void Update() override;
-	void Draw( D3DXMATRIX& View, D3DXMATRIX& Proj, LIGHT& Light, CAMERA& Camera ) override;
+	void Draw() override;
 
 	//’e‚Ì‰Šú‰».
 	void Init();

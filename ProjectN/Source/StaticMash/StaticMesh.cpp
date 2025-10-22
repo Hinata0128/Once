@@ -611,8 +611,8 @@ HRESULT StaticMesh::CreateConstantBuffer()
 //※DirectX内のレンダリング関数.
 //  最終的に画面に出力するのは別クラスのレンダリング関数がやる.
 void StaticMesh::Render(
-	D3DXMATRIX& mView, D3DXMATRIX& mProj,
-	LIGHT& Light, D3DXVECTOR3& CamPos)
+	const D3DXMATRIX& mView, const D3DXMATRIX& mProj,
+	const LIGHT& Light, const D3DXVECTOR3& CamPos)
 {
 	//ワールド行列、スケール行列、回転行列、平行移動行列.
 	D3DXMATRIX mWorld, mScale, mRot, mTran;
@@ -688,7 +688,7 @@ void StaticMesh::Render(
 
 //レンダリング関数(クラス内でのみ使用する).
 void StaticMesh::RenderMesh(
-	D3DXMATRIX& mWorld, D3DXMATRIX& mView, D3DXMATRIX& mProj)
+	const D3DXMATRIX& mWorld, const D3DXMATRIX& mView, const D3DXMATRIX& mProj)
 {
 	//シェーダのコンスタントバッファに各種データを渡す.
 	D3D11_MAPPED_SUBRESOURCE pData;

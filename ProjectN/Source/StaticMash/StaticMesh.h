@@ -113,8 +113,8 @@ public:
 	void Release();
 
 	//レンダリング用.
-	void Render(D3DXMATRIX& mView, D3DXMATRIX& mProj,
-		LIGHT& Light, D3DXVECTOR3& CamPos);
+	void Render(const D3DXMATRIX& mView, const D3DXMATRIX& mProj,
+		const LIGHT& Light, const D3DXVECTOR3& CamPos);
 
 	//座標情報を設定.
 	void SetPosition( const D3DXVECTOR3& Pos ) { m_Position = Pos; }
@@ -167,7 +167,7 @@ private:
 	HRESULT CreateSampler();
 
 	//レンダリング関数(クラス内でのみ使用する).
-	void RenderMesh( D3DXMATRIX& mWorld, D3DXMATRIX& mView, D3DXMATRIX& mProj );
+	void RenderMesh(const D3DXMATRIX& mWorld, const D3DXMATRIX& mView, const D3DXMATRIX& mProj);
 
 private:
 	//Dx9.

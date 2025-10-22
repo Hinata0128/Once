@@ -9,3 +9,12 @@ CSceneBase::CSceneBase()
 	, m_Count	(0)
 {
 }
+
+void CSceneBase::PreDraw()
+{
+	Renderer::GetInstance().SetDrawParameters(
+		m_mView,
+		m_mProj,
+		m_Light,
+		m_Camera);
+}
