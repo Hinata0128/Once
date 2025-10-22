@@ -98,23 +98,33 @@ HRESULT Effect::ReleaseData()
 	return S_OK;
 }
 
-//ビュー行列を設定
-void Effect::SetViewMatrix(const D3DXMATRIX& mView)
+// ビュー行列を設定 (Rendererから取得する形に修正)
+void Effect::SetViewMatrixFromRenderer()
 {
-	::EsMatrix EsCamMat;	//カメラ行列
+	// 1. Rendererから最新のビュー行列を取得
+	auto& renderer = Renderer::GetInstance();
+	const D3DXMATRIX& mView = renderer.GetView();
+
+	// 2. Effekseer形式に変換
+	::EsMatrix EsCamMat;
 	EsCamMat = ToEfkMatrix(&mView);
 
-	//カメラ行列を設定
+	// 3. カメラ行列を設定
 	m_pRenderer->SetCameraMatrix(EsCamMat);
 }
 
-//プロジェクション行列を設定
-void Effect::SetProjectionMatrix(const D3DXMATRIX& mProj)
+// プロジェクション行列を設定 (Rendererから取得する形に修正)
+void Effect::SetProjectionMatrixFromRenderer()
 {
-	::EsMatrix EsProjMat;	//プロジェクション行列
+	// 1. Rendererから最新の射影行列を取得
+	auto& renderer = Renderer::GetInstance();
+	const D3DXMATRIX& mProj = renderer.GetProj();
+
+	// 2. Effekseer形式に変換
+	::EsMatrix EsProjMat;
 	EsProjMat = ToEfkMatrix(&mProj);
 
-	//プロジェクション行列を設定
+	// 3. プロジェクション行列を設定
 	m_pRenderer->SetProjectionMatrix(EsProjMat);
 }
 
@@ -195,32 +205,31 @@ HRESULT Effect::LoadData()
 
 //描画
 void Effect::Draw(
-	const D3DXMATRIX& mView, const D3DXMATRIX& mProj,
-	const LIGHT& Light, const CAMERA& Camera)
+	)
 {
-	//ビュー行列を設定
-	SetViewMatrix(mView);
+	// 1. ビュー行列を設定
+		// 以前は引数から受け取っていたが、Rendererから取得
+	SetViewMatrixFromRenderer();
 
-	//プロジェクション行列を設定
-	SetProjectionMatrix(mProj);
+	// 2. プロジェクション行列を設定
+	// 以前は引数から受け取っていたが、Rendererから取得
+	SetProjectionMatrixFromRenderer();
 
-	//レイヤーパラメータ設定
+	// 3. カメラ位置を取得し、レイヤーパラメータを設定
+	// LIGHTはEffekseerでは使わないため、CAMERAのみRendererから取得
+	auto& renderer = Renderer::GetInstance();
 	::EsManager::LayerParameter layerParameter;
-	layerParameter.ViewerPosition = ToEfkVector3(&Camera.vPosition);
+	// Renderer::GetCamera() の戻り値のメンバ vPosition を使用
+	layerParameter.ViewerPosition = ToEfkVector3(&renderer.GetCamera().vPosition);
 	m_pManager->SetLayerParameter(0, layerParameter);
 
-	//エフェクトの更新処理
+	//エフェクトの更新処理 (Update()はDraw()の前ではなく、メインのUpdate()で呼び出す方が良い設計だが、ここでは現状維持)
 	m_pManager->Update();
 
 	//-------------------------
 	// Effekseerレンダリング
 	//-------------------------
-	//エフェクトの描画開始処理を行う
 	m_pRenderer->BeginRendering();
-
-	//エフェクトの描画を行う
 	m_pManager->Draw();
-
-	//エフェクトの描画終了処理を行う
 	m_pRenderer->EndRendering();
 }

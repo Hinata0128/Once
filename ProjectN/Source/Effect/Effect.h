@@ -9,12 +9,15 @@
 #include "Effekseer//include//Effekseer.h"
 #include "Effekseer//include//EffekseerRendererDX11.h"
 
+#include "..//..//Source/System/Renderer/Renderer.h"
+
 #ifdef _DEBUG
 #pragma comment(lib,"Effekseerd.lib")
 #pragma comment(lib,"EffekseerRendererDX11d.lib")
 #else//#ifdef _DEBUG
 #pragma comment(lib,"Effekseer.lib")
 #pragma comment(lib,"EffekseerRendererDX11.lib")
+
 #endif//#ifdef _DEBUG
 
 //エイリアスを用意
@@ -63,8 +66,7 @@ public:
 	//データ読み込み
 	HRESULT LoadData();
 	//描画
-	void Draw(const D3DXMATRIX& mView, const D3DXMATRIX& mProj,
-		const LIGHT& Light, const CAMERA& Camera);
+	void Draw();
 
 	//-----------------------------------
 	// 変換系
@@ -130,10 +132,9 @@ private:
 	//データ解放
 	HRESULT ReleaseData();
 
-	//ビュー行列を設定
-	void SetViewMatrix(const D3DXMATRIX& mView);
-	//プロジェクション行列を設定
-	void SetProjectionMatrix(const D3DXMATRIX& mProj);
+	void SetViewMatrixFromRenderer();
+	void SetProjectionMatrixFromRenderer();
+
 
 private:
 	//エフェクトを動作させるために必要

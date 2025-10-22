@@ -90,7 +90,7 @@ void GameMain::Draw()
 	m_pPlayer->Draw();
 	
 	//Effectクラス
-	Effect::GetInstance()->Draw(m_mView, m_mProj, m_Light, m_Camera);
+	Effect::GetInstance()->Draw();
 }
 
 HRESULT GameMain::LoadData()
