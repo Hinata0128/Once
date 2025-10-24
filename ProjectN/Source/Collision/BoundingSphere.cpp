@@ -1,5 +1,5 @@
 #include "BoundingSphere.h"
-#include "..//System//Manager//01_StaticMeshManager//StaticMeshManager.h"
+#include "..//System//00_Manager//01_StaticMeshManager//StaticMeshManager.h"
 
 BoundingSphere::BoundingSphere()
 	: m_Position()

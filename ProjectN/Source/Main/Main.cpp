@@ -2,12 +2,12 @@
 #include "DirectX\\DirectX9.h"
 #include "DirectX\\DirectX11.h"
 #include "SceneManager/SceneManager.h"
-#include "System/Manager/01_StaticMeshManager/StaticMeshManager.h"
-#include "System/Manager/00_SkinMeshManager/SkinMeshManager.h"
+#include "System/00_Manager/01_StaticMeshManager/StaticMeshManager.h"
+#include "System/00_Manager/00_SkinMeshManager/SkinMeshManager.h"
 #include "Effect/Effect.h"
 #include "Sound/SoundManager.h"
 
-#include "System/Manager/03_ImGuiManager/ImGuiManager.h"
+#include "System/00_Manager/03_ImGuiManager/ImGuiManager.h"
 // ImGuiのメッセージハンドラのための外部宣言。通常はImguiManager.hに含まれます。
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "System/Renderer/Renderer.h"
+#include "System/01_Renderer/Renderer.h"
 
 /**************************************************
 *	ゲームオブジェクトクラス.

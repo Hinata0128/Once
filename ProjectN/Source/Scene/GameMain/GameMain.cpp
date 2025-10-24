@@ -2,6 +2,9 @@
 #include "Sound/SoundManager.h"
 #include "Effect//Effect.h"
 
+#include "System/02_Singleton/Timer.h"
+#include "System/00_Manager/03_ImGuiManager/ImGuiManager.h"
+
 GameMain::GameMain()
 	: CSceneBase			() 
 	, m_pStcMeshObj			( std::make_unique<StaticMeshObject>() )
@@ -47,6 +50,8 @@ void GameMain::Create()
 
 void GameMain::Update()
 {
+	//Timer更新
+	Timer::GetInstance().Update();
 
 	//Effect制御
 	{
@@ -91,6 +96,11 @@ void GameMain::Draw()
 	
 	//Effectクラス
 	Effect::GetInstance()->Draw();
+
+	ImGui::Begin(JAPANESE("タイマー情報"));
+	ImGui::Text(JAPANESE("デルタタイム: %.4f 秒"), Timer::GetInstance().DeltaTime());
+	ImGui::Text(JAPANESE("総経過時間: %.2f 秒"), Timer::GetInstance().ElapsedTime());
+	ImGui::End();
 }
 
 HRESULT GameMain::LoadData()

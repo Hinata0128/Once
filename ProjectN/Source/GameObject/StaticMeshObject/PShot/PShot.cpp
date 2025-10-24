@@ -1,6 +1,6 @@
 #include "PShot.h"
 
-#include "System\\Manager\\01_StaticMeshManager\\StaticMeshManager.h";
+#include "System\\00_Manager\\01_StaticMeshManager\\StaticMeshManager.h";
 
 PShot::PShot()
 	: m_Speed		( 0.02f )

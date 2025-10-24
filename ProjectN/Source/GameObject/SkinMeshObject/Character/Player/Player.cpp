@@ -1,8 +1,8 @@
 #include "Player.h"
-#include "System/Manager/00_SkinMeshManager/SkinMeshManager.h"
+#include "System/00_Manager/00_SkinMeshManager/SkinMeshManager.h"
 #include "..//..//..//StaticMeshObject/PShot/PShot.h"
 
-#include "System/Manager/02_PShotManager/PShotManager.h"
+#include "System/00_Manager/02_PShotManager/PShotManager.h"
 
 constexpr float zero = 0.0f;
 
@@ -99,11 +99,14 @@ void Player::Update()
 
     if (GetAsyncKeyState(VK_SPACE) & 0x8000)
     {
+        //アニメーションを2番にする.
         m_AnimNo = 2;
+        //アニメーションの時間を初期化.
         m_AnimTime = 0.0f;
+        //アニメーションを変更.
         m_pMesh->ChangeAnimSet(m_AnimNo, m_pAnimCtrl);
 
-        // 各変換行列を作成
+        //各変換行列を作成.
         D3DXMATRIX matS, matR, matT, playerWorldMatrix;
         D3DXMatrixScaling(&matS, m_vScale.x, m_vScale.y, m_vScale.z);
         D3DXMatrixRotationYawPitchRoll(&matR, m_vRotation.y, m_vRotation.x, m_vRotation.z);
