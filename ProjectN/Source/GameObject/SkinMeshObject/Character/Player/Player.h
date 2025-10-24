@@ -4,9 +4,10 @@
 
 class PShot;
 class PShotManager;
+class Timer;
 
 /**************************************************
-*	ザコクラス
+*	プレイヤークラス.
 **/
 class Player
 	: public Character
@@ -32,4 +33,8 @@ protected:
 
 	PShotManager*	m_pShotManager;
 	D3DXVECTOR3		m_ShotOffset; // 弾発射位置のオフセット
+
+	//弾のクールタイム実装.
+	float m_ShotCoolDown;
+	float m_CoolTime;
 };

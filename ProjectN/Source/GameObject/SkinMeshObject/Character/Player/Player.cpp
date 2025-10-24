@@ -4,10 +4,15 @@
 
 #include "System/00_Manager/02_PShotManager/PShotManager.h"
 
+#include "System/02_Singleton/Timer.h"
+
 constexpr float zero = 0.0f;
 
 Player::Player()
-	: m_ShotOffset(0.0f, 0.5f, 1.0f)
+	: m_ShotOffset      (0.0f, 0.5f, 1.0f)
+
+    , m_ShotCoolDown    (0.0f)
+    , m_CoolTime        (0.5f)
 {
 	//AttachMesh(*SkinMeshManager::GetInstance()->GetSkinMeshInstance(SkinMeshManager::SkinList::Player));
 	SkinMesh* raw_mesh = SkinMeshManager::GetInstance()->GetSkinMeshInstance(SkinMeshManager::SkinList::Player);
@@ -38,8 +43,17 @@ void Player::Update()
     //ローカル変数宣言場所.
     constexpr float add_value = 0.1f;
 
+    //クールタイムの実装.
+    float deltaTime = Timer::GetInstance().DeltaTime();
+
     bool isMoving = false;  // 移動しているかフラグ
     int newAnimNo = -1;     // 今回再生すべきアニメーション
+
+    //クールタイム(0.5f)が0.0fになったら弾を発射.
+    if (m_CoolTime >= zero)
+    {
+        m_ShotCoolDown -= deltaTime;
+    }
 
     D3DXVECTOR3  ForwardAndBackward = Player_WS();
     D3DXVECTOR3  LeftAndRight       = Player_AD();
@@ -97,7 +111,8 @@ void Player::Update()
     //ボーン座標の取得
     m_pMesh->GetPosFromBone("blade_l_head", &m_BonePos);
 
-    if (GetAsyncKeyState(VK_SPACE) & 0x8000)
+    //弾を撃つボタン.
+    if (GetAsyncKeyState(VK_SPACE) & 0x8000 && m_ShotCoolDown <= zero)
     {
         //アニメーションを2番にする.
         m_AnimNo = 2;
@@ -123,6 +138,9 @@ void Player::Update()
         D3DXVec3Normalize(&Dir, &Dir);
         // Manager に弾を追加
         m_pShotManager->AddPlayerShot(shotPos, Dir);
+
+        // クールタイムリセット
+        m_ShotCoolDown = m_CoolTime;
     }
 
     // アニメーション更新
