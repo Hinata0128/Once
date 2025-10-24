@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>	//’e‚ğ¶¬‚Æ”jŠü‚ğ‚µ‚Ä‚¢‚é.
 
-#include "..//..//..//GameObject/StaticMeshObject/PShot/PShot.h"
+#include "GameObject/StaticMeshObject/PShot/PShot.h"
 
 
 class PShotManager

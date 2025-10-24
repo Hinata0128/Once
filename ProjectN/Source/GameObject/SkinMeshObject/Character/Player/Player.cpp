@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "System/00_Manager/00_SkinMeshManager/SkinMeshManager.h"
-#include "..//..//..//StaticMeshObject/PShot/PShot.h"
+#include "GameObject/StaticMeshObject/PShot/PShot.h"
 
 #include "System/00_Manager/02_PShotManager/PShotManager.h"
 
@@ -29,7 +29,6 @@ Player::Player()
 	//m_AnimSpeed = 0.0002f;
 
     m_pShotManager = PShotManager::GetInstance();
-
 }
 
 Player::~Player()

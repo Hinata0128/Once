@@ -9,8 +9,7 @@
 #include "Effekseer//include//Effekseer.h"
 #include "Effekseer//include//EffekseerRendererDX11.h"
 
-#include "..//..//Source/System/01_Renderer/Renderer.h"
-
+#include "System/01_Renderer/Renderer.h"
 #ifdef _DEBUG
 #pragma comment(lib,"Effekseerd.lib")
 #pragma comment(lib,"EffekseerRendererDX11d.lib")

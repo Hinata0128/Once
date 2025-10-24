@@ -26,7 +26,7 @@ void StaticMeshManager::Create()
 	MeshList MList[] =
 	{
 
-		{CMeshList::Bullet, 	_T("Data\\Mesh\\Static\\Bullet\\bullet.x")},
+		{CMeshList::Bullet, 	_T("Data\\Mesh\\Static\\Bullet\\BulletTest.x")},
 		{CMeshList::Ground,		_T("Data\\Mesh\\Static\\Ground\\ground.x")},
 		{CMeshList::Collision,	_T("Data\\Mesh\\Static\\Collision\\Sphere.x")},
 	};
