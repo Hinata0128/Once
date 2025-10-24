@@ -2,6 +2,10 @@
 #include "System/Manager/00_SkinMeshManager/SkinMeshManager.h"
 #include "..//..//..//StaticMeshObject/PShot/PShot.h"
 
+#include "System/Manager/02_PShotManager/PShotManager.h"
+
+constexpr float zero = 0.0f;
+
 Player::Player()
 	: m_ShotOffset(0.0f, 0.5f, 1.0f)
 {
@@ -19,17 +23,8 @@ Player::Player()
 	m_AnimSpeed = 0.02f;
 	//m_AnimSpeed = 0.0002f;
 
-	//今はプレイヤークラスで弾の出る出ないの確認をしたかったのでここに書いている.
-	const int SHOT_COUNT = 10;
-	m_pShotList.reserve(SHOT_COUNT); // メモリ事前確保
+    m_pShotManager = PShotManager::GetInstance();
 
-	for (int i = 0; i < SHOT_COUNT; ++i)
-	{
-		auto shot = std::make_unique<PShot>();
-		shot->Init();          // 初期化
-		shot->SetDisplay(false); // 非表示にしておく
-		m_pShotList.push_back(std::move(shot));
-	}
 }
 
 Player::~Player()
@@ -38,37 +33,45 @@ Player::~Player()
 
 void Player::Update()
 {
-	m_pMesh->SetAnimSpeed(m_AnimSpeed);
-	
-	constexpr float add_value = 0.1f;
+    m_pMesh->SetAnimSpeed(m_AnimSpeed);
+
+    //ローカル変数宣言場所.
+    constexpr float add_value = 0.1f;
 
     bool isMoving = false;  // 移動しているかフラグ
     int newAnimNo = -1;     // 今回再生すべきアニメーション
 
+    D3DXVECTOR3  ForwardAndBackward = Player_WS();
+    D3DXVECTOR3  LeftAndRight       = Player_AD();
+
     // キー入力による移動
     if (GetAsyncKeyState('W') & 0x8000)
     {
-        m_vPosition.z += add_value;
-        isMoving = true;
+        m_vPosition += ForwardAndBackward * add_value;
+        isMoving = true; 
         newAnimNo = 2;  // 走るアニメーション
     }
-    else if (GetAsyncKeyState('S') & 0x8000)
+    if (GetAsyncKeyState('S') & 0x8000)
     {
-        m_vPosition.z -= add_value;
+        m_vPosition -= ForwardAndBackward * add_value;
         isMoving = true;
         newAnimNo = 0;  // 後退アニメーション
     }
-    else if (GetAsyncKeyState('D') & 0x8000)
+    if (GetAsyncKeyState('D') & 0x8000)
     {
-        m_vPosition.x += add_value;
+        m_vPosition += LeftAndRight * add_value;
         isMoving = true;
         newAnimNo = 2;  // 走るアニメーション
     }
-    else if (GetAsyncKeyState('A') & 0x8000)
+    if (GetAsyncKeyState('A') & 0x8000)
     {
-        m_vPosition.x -= add_value;
+        m_vPosition -= LeftAndRight * add_value;
         isMoving = true;
         newAnimNo = 2;  // 走るアニメーション
+    }
+    if (GetAsyncKeyState(VK_UP) & 0x8000)
+    {
+        m_vRotation.y += add_value;
     }
 
     // 移動している場合のみアニメーションを切り替え
@@ -83,7 +86,6 @@ void Player::Update()
     }
     else
     {
-        // 移動していなければ待機アニメーション
         if (m_AnimNo != 0)  // 待機アニメーションは0と仮定
         {
             m_AnimNo = 0;
@@ -92,62 +94,39 @@ void Player::Update()
         }
     }
 
-	//ボーン座標の取得
-	m_pMesh->GetPosFromBone("blade_l_head", &m_BonePos);
-	
-	if (GetAsyncKeyState(VK_SPACE) & 0x8000)
-	{
-		m_AnimNo = 2;
-		m_AnimTime = 0.0f;
-		m_pMesh->ChangeAnimSet(m_AnimNo, m_pAnimCtrl);
-		for (auto& shot : m_pShotList)
-		{
-			if (!shot->IsDisplay())
-			{
-				//各変換行列を個別に作成する.
-				D3DXMATRIX matS, matR, matT;
-				D3DXMATRIX playerWorldMatrix;
+    //ボーン座標の取得
+    m_pMesh->GetPosFromBone("blade_l_head", &m_BonePos);
 
-				//スケール行列の作成.
-				D3DXMatrixScaling(&matS, m_vScale.x, m_vScale.y, m_vScale.z);
-
-				//回転行列の作成 (m_vRotationをオイラー角として使用).
-				D3DXMatrixRotationYawPitchRoll(
-					&matR,
-					m_vRotation.y, m_vRotation.x, m_vRotation.z
-				);
-
-				//移動行列の作成.
-				D3DXMatrixTranslation(&matT, m_vPosition.x, m_vPosition.y, m_vPosition.z);
-
-				//ワールド行列を構築する (S * R * T の順に乗算).
-				//SをRで変換し、その結果をTで変換する.
-				D3DXMatrixMultiply(&playerWorldMatrix, &matS, &matR);
-				D3DXMatrixMultiply(&playerWorldMatrix, &playerWorldMatrix, &matT);
-
-				//ローカルのボーン座標をワールド座標に変換する.
-				D3DXVECTOR3 worldBonePos;
-				D3DXVec3TransformCoord(&worldBonePos, &m_BonePos, &playerWorldMatrix);
-
-				//ワールド座標にオフセットを加えて、最終的な発射位置を決定.
-				D3DXVECTOR3 shotPos = worldBonePos + m_ShotOffset;
-
-				//弾を発射.
-				shot->Reload(shotPos, 0.2f);
-				shot->SetDisplay(true);
-				break;
-			}
-		}
-	}
-
-    // 弾の更新
-    for (auto& shot : m_pShotList)
+    if (GetAsyncKeyState(VK_SPACE) & 0x8000)
     {
-        shot->Update();
+        m_AnimNo = 2;
+        m_AnimTime = 0.0f;
+        m_pMesh->ChangeAnimSet(m_AnimNo, m_pAnimCtrl);
+
+        // 各変換行列を作成
+        D3DXMATRIX matS, matR, matT, playerWorldMatrix;
+        D3DXMatrixScaling(&matS, m_vScale.x, m_vScale.y, m_vScale.z);
+        D3DXMatrixRotationYawPitchRoll(&matR, m_vRotation.y, m_vRotation.x, m_vRotation.z);
+        D3DXMatrixTranslation(&matT, m_vPosition.x, m_vPosition.y, m_vPosition.z);
+        D3DXMatrixMultiply(&playerWorldMatrix, &matS, &matR);
+        D3DXMatrixMultiply(&playerWorldMatrix, &playerWorldMatrix, &matT);
+
+        D3DXVECTOR3 worldBonePos;
+        D3DXVec3TransformCoord(&worldBonePos, &m_BonePos, &playerWorldMatrix);
+
+        D3DXVECTOR3 shotPos = worldBonePos + m_ShotOffset;
+
+        D3DXVECTOR3 Dir = Player_WS();
+        D3DXVec3Normalize(&Dir, &Dir);
+        // Manager に弾を追加
+        m_pShotManager->AddPlayerShot(shotPos, Dir);
     }
 
     // アニメーション更新
     m_pAnimCtrl->AdvanceTime(m_AnimSpeed, nullptr);
+
+    // 弾の更新
+    m_pShotManager->Update();
 }
 
 
@@ -156,10 +135,7 @@ void Player::Draw()
 	m_pMesh->SetAnimSpeed(m_AnimSpeed);
 	Character::Draw();
 
-	for (auto& shot : m_pShotList)
-	{
-		shot->Draw();
-	}
+    m_pShotManager->Draw();
 }
 
 void Player::Stop()
@@ -174,5 +150,26 @@ void Player::Stop()
         trackDesc.Enable = FALSE;
         m_pAnimCtrl->SetTrackDesc(0, &trackDesc);
     }
+}
+//W・Sの前進後退用関数.
+D3DXVECTOR3 Player::Player_WS() const
+{
+    // Player の回転から前方方向ベクトルを計算
+    D3DXVECTOR3 dir;
+    
+    dir.x = sinf(m_vRotation.y);
+    dir.y = zero;
+    dir.z = cosf(m_vRotation.y);
+    return dir;
+
+}
+//A・Dの左右用関数.
+D3DXVECTOR3 Player::Player_AD() const
+{
+    D3DXVECTOR3 dir;
+    dir.x = cosf(m_vRotation.y);
+    dir.y = zero;
+    dir.z = -sinf(m_vRotation.y);
+    return dir;
 }
 

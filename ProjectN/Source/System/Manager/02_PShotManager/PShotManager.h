@@ -14,13 +14,8 @@ public:
 	void Update();
 	void Draw();
 
-	void Init();
-
 	//プレイヤーの通常弾を作成して、管理リストに追加させる.
 	void AddPlayerShot(const D3DXVECTOR3& Pos, const D3DXVECTOR3& InitDirecton);
-
-	//弾の破棄.
-	void CleraPlayerShot();
 
 	void ReMovePlayerShot(size_t index);
 
@@ -39,5 +34,5 @@ private:
 private:
 	static PShotManager* m_pInstance;	//シングルトンインスタンス.
 
-	std::vector<std::unique_ptr<PShot>> m_PlayerShots;
+	std::vector<std::unique_ptr<PShot>> m_PlayerShot;
 };
