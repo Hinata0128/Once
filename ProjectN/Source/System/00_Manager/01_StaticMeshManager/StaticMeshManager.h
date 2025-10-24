@@ -14,6 +14,7 @@ public:
 		Bullet,		//’e.
 		Ground,		//’n–Ê.
 		Collision,	//“–‚½‚è”»’è.
+		EnemyBullet,//“G‚Ì’e.
 
 		max,
 	};
