@@ -1,12 +1,13 @@
 #pragma once
-#include "Scene/CSceneBase.h"
-#include "GameObject/SpriteObject/SpriteObject.h"
-#include "SceneManager/SceneManager.h"
+#include "Scene//CSceneBase.h"
+#include "GameObject//SpriteObject//SpriteObject.h"
+#include "SceneManager//SceneManager.h"
 
-#include "GameObject/StaticMeshObject/Ground/Ground.h"
-#include "GameObject/SkinMeshObject/Character/Player/Player.h"
+#include "GameObject//StaticMeshObject//Ground//Ground.h"
+#include "GameObject//SkinMeshObject//Character//Player//Player.h"
+#include "GameObject//SkinMeshObject//Character//EnemyBase//EnemyNomal//EnemyNomal.h"
 
-#include "Sprite3D/Sprite3D.h"
+#include "Sprite3D//Sprite3D.h"
 
 class Timer;
 
@@ -46,5 +47,8 @@ private:
 
 	//プレイヤークラス.
 	std::unique_ptr<Player> m_pPlayer;
+
+	//ノーマルエネミークラス.
+	std::unique_ptr<EnemyNomal> m_pEnemyNomal;
 
 };

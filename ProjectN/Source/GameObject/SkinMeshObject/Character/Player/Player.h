@@ -9,7 +9,7 @@ class Timer;
 /**************************************************
 *	プレイヤークラス.
 **/
-class Player
+class Player final
 	: public Character
 {
 public:

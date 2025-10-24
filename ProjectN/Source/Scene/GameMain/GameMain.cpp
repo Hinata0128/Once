@@ -1,9 +1,9 @@
 ﻿#include "GameMain.h"
-#include "Sound/SoundManager.h"
+#include "Sound//SoundManager.h"
 #include "Effect//Effect.h"
 
-#include "System/02_Singleton/Timer.h"
-#include "System/00_Manager/03_ImGuiManager/ImGuiManager.h"
+#include "System//02_Singleton//Timer.h"
+#include "System//00_Manager//03_ImGuiManager//ImGuiManager.h"
 
 GameMain::GameMain()
 	: CSceneBase			() 
@@ -12,6 +12,7 @@ GameMain::GameMain()
 	, m_pGround				( std::make_unique<Ground>() )
 
 	, m_pPlayer				(std::make_unique<Player>())
+	, m_pEnemyNomal			(std::make_unique<EnemyNomal>())
 
 {
 	m_pDx11 = DirectX11::GetInstance();
@@ -37,7 +38,6 @@ GameMain::~GameMain()
 
 void GameMain::Initialize()
 {
-
 	// カメラの位置を初期化
 	m_Camera.vPosition = D3DXVECTOR3(0.0f, 5.0f, -5.0f);
 	m_Camera.vLook = D3DXVECTOR3(0.0f, 2.0f, 5.0f);
@@ -80,6 +80,7 @@ void GameMain::Update()
 
 	m_pPlayer->Update();
 
+	m_pEnemyNomal->Update();
 }
 
 void GameMain::Draw()
@@ -93,6 +94,7 @@ void GameMain::Draw()
 		//地面表示.
 	m_pGround->Draw();
 	m_pPlayer->Draw();
+	m_pEnemyNomal->Draw();
 	
 	//Effectクラス
 	Effect::GetInstance()->Draw();

@@ -23,7 +23,8 @@ void SkinMeshManager::Create()
 	{
 		//ここに生成したいスキンメッシュの情報を書く.
 		//{static_cast<int>(SkinList::Player), _T("Data\\Mesh\\Skin\\zako\\zako.x")},
-		{static_cast<int>(SkinList::Player), _T("Data\\Mesh\\Skin\\EXTINGER\\extinger.X")},
+		{static_cast<int>(SkinList::Player),	_T("Data\\Mesh\\Skin\\EXTINGER\\extinger.X")},
+		{static_cast<int>(SkinList::Enemy),		_T("Data\\Mesh\\Skin\\zako\\zako.X")},
 	};
 	int List_Max = sizeof(SList) / sizeof(SList[0]);
 	for (int i = 0; i < List_Max; ++i)

@@ -9,10 +9,11 @@
 constexpr float zero = 0.0f;
 
 Player::Player()
-	: m_ShotOffset      (0.0f, 0.5f, 1.0f)
+	: m_ShotOffset      (0.0f, 1.5f, 1.0f)
 
     , m_ShotCoolDown    (0.0f)
-    , m_CoolTime        (0.5f)
+    //個々の初期化数値を設定することで発射レートが上がったり下がったりする.
+    , m_CoolTime        (0.0f)
 {
 	//AttachMesh(*SkinMeshManager::GetInstance()->GetSkinMeshInstance(SkinMeshManager::SkinList::Player));
 	SkinMesh* raw_mesh = SkinMeshManager::GetInstance()->GetSkinMeshInstance(SkinMeshManager::SkinList::Player);
@@ -26,7 +27,6 @@ Player::Player()
 
 	//アニメーションの速度を
 	m_AnimSpeed = 0.02f;
-	//m_AnimSpeed = 0.0002f;
 
     m_pShotManager = PShotManager::GetInstance();
 }
