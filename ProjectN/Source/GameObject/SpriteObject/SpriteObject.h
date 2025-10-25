@@ -1,37 +1,38 @@
-//#pragma once
-//
-//#include "GameObject\GameObject.h"
-//
-//#include "Sprite3D\Sprite3D.h"
-//
-///************************************************************
-//*	スプライトオブジェクトクラス.
-//**/
-//class SpriteObject
-//	: public GameObject
-//{
-//public:
-//	SpriteObject();
-//	virtual ~SpriteObject() override;
-//
-//	//CGameObjectで純粋仮想関数の宣言がされてるのでこちらで定義を書く.
-//	virtual void Update() override;
-//	//SpriteObjectで宣言した関数で、以降これをoverrideさせる.
-//	virtual void Draw( D3DXMATRIX& View, D3DXMATRIX& Proj );
-//
-//	//スプライトを接続する.
-//	void AttachSprite(Sprite3D& pSprite ){
-//		m_pSprite = &pSprite;
-//	}
-//	//スプライトを切り離す.
-//	void DetachSprite(){
-//		m_pSprite = nullptr;
-//	}
-//
-////継承元の子クラスにも使えるDraw()関数
-//protected:
-//	void Draw() override final;
-//
-//protected:
-//	Sprite3D*	m_pSprite;
-//};
+#pragma once
+
+#include "GameObject/GameObject.h"
+#include "Sprite3D/Sprite3D.h"
+
+/************************************************************
+*	スプライトオブジェクトクラス.
+**/
+class SpriteObject
+	: public GameObject
+{
+public:
+	SpriteObject();
+	virtual ~SpriteObject() override;
+
+	// GameObjectの純粋仮想関数を定義
+	virtual void Update() override;
+	// 引数なしDraw（オーバーライド）
+	virtual void Draw() override;
+
+	// スプライトを接続する
+	void AttachSprite(Sprite3D& pSprite) {
+		m_pSprite = &pSprite;
+	}
+	// スプライトを切り離す
+	void DetachSprite() {
+		m_pSprite = nullptr;
+	}
+
+	// 行列を外部から設定できるようにする
+	void SetViewMatrix(const D3DXMATRIX& view) { m_View = view; }
+	void SetProjMatrix(const D3DXMATRIX& proj) { m_Proj = proj; }
+
+protected:
+	Sprite3D* m_pSprite;
+	D3DXMATRIX m_View;
+	D3DXMATRIX m_Proj;
+};

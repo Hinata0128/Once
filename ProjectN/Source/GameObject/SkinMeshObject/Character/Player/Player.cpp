@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "System/00_Manager/00_SkinMeshManager/SkinMeshManager.h"
-#include "GameObject/StaticMeshObject/PShot/PShot.h"
+#include "..//..//..//StaticMeshObject/ShotBase/PShot/PShot.h"
 
 #include "System/00_Manager/02_PShotManager/PShotManager.h"
 
