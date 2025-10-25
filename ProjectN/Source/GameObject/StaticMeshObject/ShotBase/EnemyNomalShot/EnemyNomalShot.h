@@ -8,7 +8,7 @@ class StaticMeshManager;
 **/
 
 class EnemyNomalShot
-	: ShotBase
+	: public ShotBase
 {
 public:
 	EnemyNomalShot();
@@ -23,5 +23,4 @@ public:
 	void Reload(const D3DXVECTOR3& pos, const D3DXVECTOR3& direction, float speed) override;
 
 private:
-
 };

@@ -9,11 +9,6 @@
 constexpr float zero = 0.0f;
 
 Player::Player()
-	: m_ShotOffset      (0.0f, 1.5f, 1.0f)
-
-    , m_ShotCoolDown    (0.0f)
-    //個々の初期化数値を設定することで発射レートが上がったり下がったりする.
-    , m_CoolTime        (0.0f)
 {
 	//AttachMesh(*SkinMeshManager::GetInstance()->GetSkinMeshInstance(SkinMeshManager::SkinList::Player));
 	SkinMesh* raw_mesh = SkinMeshManager::GetInstance()->GetSkinMeshInstance(SkinMeshManager::SkinList::Player);
@@ -147,6 +142,8 @@ void Player::Update()
 
     // 弾の更新
     m_pShotManager->Update();
+
+    Character::Update();
 }
 
 

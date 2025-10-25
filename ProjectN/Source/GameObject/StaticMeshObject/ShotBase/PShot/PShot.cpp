@@ -40,7 +40,7 @@ void PShot::Draw()
 {
 	if (m_Disp)
 	{
-		StaticMeshObject::Draw();
+		ShotBase::Draw();
 	}
 }
 
@@ -63,10 +63,10 @@ void PShot::Reload(const D3DXVECTOR3& pos, const D3DXVECTOR3& direction, float s
 {
 	m_vPosition = pos;
 	m_Direction = direction;
-	m_Speed = speed;
+	m_Speed		= speed;
 
-	m_Disp = true;
-	m_IsActive = true;
+	m_Disp		= true;
+	m_IsActive	= true;
 
 	if (m_BSphere)
 	{
